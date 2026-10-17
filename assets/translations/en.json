@@ -1,0 +1,21 @@
+{
+  "email_address": "Email Address",
+  "password": "Password",
+  "sign_in": "Sign in",
+  "create_account": "Create account",
+  "auth_create_new_account": "Create new account",
+  "auth_already_have_account": "I already have an account",
+  "name": "Name",
+  "change_language": "Change Language",
+  "auth_tagline": "A world of\npossibility in an\napp",
+  "auth_email_required": "Email is required.",
+  "auth_email_invalid": "Enter a valid email address.",
+  "auth_password_required": "Password is required.",
+  "auth_password_length": "Password must be at least 6 characters.",
+  "auth_forgot_password": "Forgot password?",
+  "auth_reset_password_title": "Reset your password",
+  "auth_reset_password_description": "Enter your account email. Firebase will send a secure link where you can choose a new password.",
+  "auth_send_reset_link": "Send reset link",
+  "auth_back_to_sign_in": "Back to sign in",
+  "auth_reset_email_sent": "Password reset link sent. Check your email inbox."
+}
