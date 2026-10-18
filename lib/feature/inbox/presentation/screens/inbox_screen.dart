@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/inbox/data/models/inbox_message.dart';
@@ -27,7 +28,7 @@ class _InboxContent extends StatelessWidget {
 
     return SafeArea(
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 18, 20, 28),
+        padding: const EdgeInsets.fromLTRB(13, 18, 13, 28),
         children: [
           Row(
             children: [
@@ -35,7 +36,7 @@ class _InboxContent extends StatelessWidget {
               if (inbox.unreadCount > 0)
                 TextButton.icon(
                   onPressed: inbox.markAllRead,
-                  icon: const Icon(Icons.done_all_rounded, size: 18),
+                  icon: const Icon(AppIcons.completed, size: 18),
                   label: const Text('Read all'),
                 ),
             ],
@@ -62,11 +63,7 @@ class _InboxContent extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Icon(
-                    Icons.mail_outline_rounded,
-                    color: colors.textMuted,
-                    size: 36,
-                  ),
+                  Icon(AppIcons.mail, color: colors.textMuted, size: 36),
                   const SizedBox(height: 12),
                   Text('Nothing here yet', style: text.titleMedium),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 
@@ -16,11 +17,7 @@ class OrderProgressTracker extends StatelessWidget {
       OrderStatus.delivered => 2,
     };
     const labels = ['Placed', 'On the way', 'Delivered'];
-    const icons = [
-      Icons.receipt_long_rounded,
-      Icons.local_shipping_rounded,
-      Icons.home_rounded,
-    ];
+    const icons = [AppIcons.receipt, AppIcons.delivery, AppIcons.home];
 
     return Row(
       children: List.generate(labels.length, (index) {

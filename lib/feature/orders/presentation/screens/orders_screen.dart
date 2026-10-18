@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
@@ -40,7 +41,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
       body: SafeArea(
         bottom: false,
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(20, 22, 20, 28),
+          padding: const EdgeInsets.fromLTRB(13, 22, 13, 28),
           children: [
             Row(
               children: [
@@ -68,7 +69,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                   icon: Badge(
                     isLabelVisible: shop.cartCount > 0,
                     label: Text('${shop.cartCount}'),
-                    child: const Icon(Icons.shopping_bag_outlined),
+                    child: const Icon(AppIcons.bag),
                   ),
                 ),
               ],
@@ -151,7 +152,7 @@ class _OrdersHero extends StatelessWidget {
             right: -24,
             top: -22,
             child: Icon(
-              Icons.local_shipping_rounded,
+              AppIcons.delivery,
               size: 154,
               color: Colors.white.withValues(alpha: .11),
             ),
@@ -173,7 +174,7 @@ class _OrdersHero extends StatelessWidget {
                   'SUPPLY PIPELINE',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.white,
-                    letterSpacing: 1.2,
+                    letterSpacing: .15,
                   ),
                 ),
               ),
@@ -252,7 +253,7 @@ class _EmptyOrders extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(Icons.receipt_long_outlined, size: 40, color: colors.brand),
+          Icon(AppIcons.receipt, size: 40, color: colors.brand),
           const SizedBox(height: 12),
           Text(
             filter == _OrderFilter.active

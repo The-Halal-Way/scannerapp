@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/core/util/app_format.dart';
@@ -38,7 +39,7 @@ class OrderPlacedScreen extends StatelessWidget {
                   ],
                 ),
                 child: const Icon(
-                  Icons.check_rounded,
+                  AppIcons.check,
                   size: 74,
                   color: Colors.white,
                 ),

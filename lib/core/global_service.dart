@@ -8,8 +8,8 @@ class GlobalService extends ChangeNotifier {
   ServerUserData? _currentUser = const ServerUserData(
     id: 'demo-pharmacy-001',
     firebaseId: '',
-    username: 'Ayesha Rahman',
-    email: 'ayesha@carepoint.demo',
+    username: 'Jb Jason',
+    email: 'jb@carepoint.demo',
     phone: '+880 1712 345 678',
     pharmacyName: 'CarePoint Pharmacy',
     address: 'House 12, Road 7, Dhanmondi, Dhaka 1205',

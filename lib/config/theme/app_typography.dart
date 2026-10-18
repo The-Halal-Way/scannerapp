@@ -5,105 +5,88 @@ import 'package:scannerapp/core/constants/my_string.dart';
 
 abstract final class AppTypography {
   static TextTheme build(AppThemeColors colors) {
-    TextStyle heading(
-      double size, {
-      FontWeight weight = FontWeight.w600,
-      Color? color,
-      double? height,
-      double? letterSpacing,
-    }) {
-      final family = switch (weight) {
-        FontWeight.w700 ||
-        FontWeight.w800 ||
-        FontWeight.w900 => MyString.poppinsBold,
-        FontWeight.w500 || FontWeight.w600 => MyString.poppinsMedium,
-        _ => MyString.poppinsRegular,
-      };
-
-      return TextStyle(
-        fontFamily: family,
-        fontSize: size.sp,
-        fontWeight: weight,
-        color: color ?? colors.textPrimary,
-        height: height,
-        letterSpacing: letterSpacing,
-      );
-    }
-
-    TextStyle body(
+    TextStyle style(
       double size, {
       FontWeight weight = FontWeight.w400,
       Color? color,
       double? height,
       double? letterSpacing,
-    }) {
-      final family = weight.index >= FontWeight.w600.index
-          ? MyString.rubikBold
-          : weight == FontWeight.w500
-          ? MyString.rubikMedium
-          : MyString.rubikRegular;
-
-      return TextStyle(
-        fontFamily: family,
-        fontSize: size.sp,
-        fontWeight: weight,
-        color: color ?? colors.textPrimary,
-        height: height,
-        letterSpacing: letterSpacing,
-      );
-    }
+    }) => TextStyle(
+      fontFamily: MyString.appFont,
+      fontSize: size.sp,
+      fontWeight: weight,
+      fontVariations: [FontVariation('wght', weight.value.toDouble())],
+      color: color ?? colors.textPrimary,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
 
     return TextTheme(
-      displayLarge: heading(
-        42,
-        weight: FontWeight.w700,
-        height: 1.08,
-        letterSpacing: -1.2,
+      displayLarge: style(
+        38,
+        weight: FontWeight.w800,
+        height: 1.1,
+        letterSpacing: -1.4,
       ),
-      displayMedium: heading(
-        34,
-        weight: FontWeight.w700,
+      displayMedium: style(
+        32,
+        weight: FontWeight.w800,
         height: 1.12,
-        letterSpacing: -0.8,
+        letterSpacing: -1.1,
       ),
-      displaySmall: heading(
-        29,
-        weight: FontWeight.w700,
-        height: 1.15,
-        letterSpacing: -0.6,
-      ),
-      headlineLarge: heading(
+      displaySmall: style(
         28,
-        weight: FontWeight.w700,
+        weight: FontWeight.w800,
         height: 1.16,
-        letterSpacing: -0.5,
+        letterSpacing: -.9,
       ),
-      headlineMedium: heading(
-        25,
+      headlineLarge: style(
+        27,
+        weight: FontWeight.w800,
+        height: 1.16,
+        letterSpacing: -.8,
+      ),
+      headlineMedium: style(
+        24,
+        weight: FontWeight.w800,
+        height: 1.2,
+        letterSpacing: -.6,
+      ),
+      headlineSmall: style(
+        21,
         weight: FontWeight.w700,
-        height: 1.18,
-        letterSpacing: -0.4,
+        height: 1.25,
+        letterSpacing: -.4,
       ),
-      headlineSmall: heading(22, weight: FontWeight.w600, height: 1.2),
-      titleLarge: heading(20, weight: FontWeight.w600, height: 1.25),
-      titleMedium: heading(16, weight: FontWeight.w600, height: 1.3),
-      titleSmall: heading(14, weight: FontWeight.w600, height: 1.3),
-      bodyLarge: body(16, height: 1.5),
-      bodyMedium: body(14, color: colors.textSecondary, height: 1.5),
-      bodySmall: body(12, color: colors.textSecondary, height: 1.45),
-      labelLarge: body(14, weight: FontWeight.w600, height: 1.25),
-      labelMedium: body(
+      titleLarge: style(
+        19,
+        weight: FontWeight.w700,
+        height: 1.3,
+        letterSpacing: -.3,
+      ),
+      titleMedium: style(
+        16,
+        weight: FontWeight.w700,
+        height: 1.3,
+        letterSpacing: -.2,
+      ),
+      titleSmall: style(14, weight: FontWeight.w700, height: 1.3),
+      bodyLarge: style(16, height: 1.48),
+      bodyMedium: style(14, color: colors.textSecondary, height: 1.48),
+      bodySmall: style(12, color: colors.textSecondary, height: 1.45),
+      labelLarge: style(14, weight: FontWeight.w700, height: 1.25),
+      labelMedium: style(
         12,
-        weight: FontWeight.w600,
+        weight: FontWeight.w700,
         color: colors.textSecondary,
         height: 1.25,
       ),
-      labelSmall: body(
+      labelSmall: style(
         10.5,
-        weight: FontWeight.w600,
+        weight: FontWeight.w700,
         color: colors.textMuted,
         height: 1.25,
-        letterSpacing: 0.2,
+        letterSpacing: .1,
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 // ── Public surface ────────────────────────────────────────────────────────────
@@ -231,17 +232,9 @@ class _GenerationPlayerBodyState extends State<GenerationPlayerBody>
           children: [
             // Large EQ bars or state icon
             if (isFailed)
-              Icon(
-                Icons.error_outline_rounded,
-                size: 40.sp,
-                color: colors.danger,
-              )
+              Icon(AppIcons.error, size: 40.sp, color: colors.danger)
             else if (isComplete)
-              Icon(
-                Icons.check_circle_outline_rounded,
-                size: 40.sp,
-                color: colors.success,
-              )
+              Icon(AppIcons.checked, size: 40.sp, color: colors.success)
             else
               _EqBars(
                 ctrl: _ctrl,
@@ -329,18 +322,10 @@ class _EqBars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isFailed) {
-      return Icon(
-        Icons.error_outline_rounded,
-        size: maxBarHeight + 2,
-        color: color,
-      );
+      return Icon(AppIcons.error, size: maxBarHeight + 2, color: color);
     }
     if (isComplete) {
-      return Icon(
-        Icons.check_circle_outline_rounded,
-        size: maxBarHeight + 2,
-        color: color,
-      );
+      return Icon(AppIcons.checked, size: maxBarHeight + 2, color: color);
     }
 
     final gap = gapWidth ?? 2.w;
@@ -552,7 +537,7 @@ class _StepDot extends StatelessWidget {
                 : null,
           ),
           child: isDone
-              ? Icon(Icons.check_rounded, size: 7.sp, color: Colors.white)
+              ? Icon(AppIcons.check, size: 7.sp, color: Colors.white)
               : null,
         ),
         SizedBox(height: 4.h),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/profile/presentation/providers/profile_provider.dart';
@@ -32,7 +33,7 @@ class _SettingsContent extends StatelessWidget {
 
     return SafeArea(
       child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 18, 20, 30),
+        padding: const EdgeInsets.fromLTRB(13, 18, 13, 30),
         children: [
           Text('Settings', style: text.headlineLarge),
           const SizedBox(height: 5),
@@ -48,7 +49,7 @@ class _SettingsContent extends StatelessWidget {
           _SettingsGroup(
             children: [
               SettingsActionTile(
-                icon: Icons.person_outline_rounded,
+                icon: AppIcons.person,
                 title: 'Profile details',
                 subtitle: 'Contact and pharmacy information',
                 onTap: () => _openProfile(context),
@@ -61,7 +62,7 @@ class _SettingsContent extends StatelessWidget {
           _SettingsGroup(
             children: [
               SettingsToggleTile(
-                icon: Icons.local_shipping_outlined,
+                icon: AppIcons.delivery,
                 title: 'Order updates',
                 subtitle: 'Know when an order moves',
                 value: settings.orderAlerts,
@@ -69,7 +70,7 @@ class _SettingsContent extends StatelessWidget {
               ),
               Divider(height: 1, indent: 70, color: colors.stroke),
               SettingsToggleTile(
-                icon: Icons.local_offer_outlined,
+                icon: AppIcons.offer,
                 title: 'Offers & savings',
                 subtitle: 'Get news about new deals',
                 value: settings.offerAlerts,
@@ -83,7 +84,7 @@ class _SettingsContent extends StatelessWidget {
           _SettingsGroup(
             children: [
               SettingsActionTile(
-                icon: Icons.help_outline_rounded,
+                icon: AppIcons.help,
                 title: 'Help & support',
                 subtitle: 'Quick answers about this app',
                 accent: colors.coral,
@@ -97,7 +98,7 @@ class _SettingsContent extends StatelessWidget {
               'MED CLUB  ·  WHOLESALE MADE SIMPLE',
               style: text.labelSmall?.copyWith(
                 color: colors.textMuted,
-                letterSpacing: 1.2,
+                letterSpacing: .15,
               ),
             ),
           ),
@@ -133,7 +134,7 @@ class _SectionLabel extends StatelessWidget {
       style: Theme.of(context).textTheme.labelSmall?.copyWith(
         color: context.appColors.textMuted,
         fontWeight: FontWeight.w800,
-        letterSpacing: 1.4,
+        letterSpacing: .15,
       ),
     );
   }
@@ -181,7 +182,7 @@ class _HelpSheet extends StatelessWidget {
                 color: colors.coral.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Icon(Icons.support_agent_rounded, color: colors.coral),
+              child: Icon(AppIcons.help, color: colors.coral),
             ),
             const SizedBox(height: 16),
             Text('Help & support', style: text.headlineSmall),

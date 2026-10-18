@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/global_service.dart';
@@ -66,7 +67,7 @@ class CartScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.location_on_outlined, color: colors.brand),
+                      Icon(AppIcons.location, color: colors.brand),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
@@ -135,7 +136,7 @@ class CartScreen extends StatelessWidget {
                             ),
                           );
                         },
-                        icon: const Icon(Icons.arrow_forward_rounded),
+                        icon: const Icon(AppIcons.forward),
                         iconAlignment: IconAlignment.end,
                         label: const Text('Place order'),
                       ),
@@ -170,11 +171,7 @@ class _DeliveryProgress extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Icon(
-                Icons.local_shipping_outlined,
-                color: Colors.white,
-                size: 20,
-              ),
+              const Icon(AppIcons.delivery, color: Colors.white, size: 20),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -223,11 +220,7 @@ class _EmptyCart extends StatelessWidget {
                 color: colors.brand.withValues(alpha: .10),
                 borderRadius: BorderRadius.circular(36),
               ),
-              child: Icon(
-                Icons.shopping_bag_outlined,
-                size: 58,
-                color: colors.brand,
-              ),
+              child: Icon(AppIcons.bag, size: 58, color: colors.brand),
             ),
             const SizedBox(height: 28),
             Text(
@@ -243,7 +236,7 @@ class _EmptyCart extends StatelessWidget {
             const SizedBox(height: 25),
             FilledButton.icon(
               onPressed: onContinue,
-              icon: const Icon(Icons.arrow_back_rounded),
+              icon: const Icon(AppIcons.back),
               label: const Text('Continue shopping'),
             ),
           ],

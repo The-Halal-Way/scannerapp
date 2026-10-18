@@ -33,7 +33,7 @@ class FeatureBadge extends StatelessWidget {
               style: theme.textTheme.labelSmall?.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w700,
-                letterSpacing: 0.9,
+                letterSpacing: .15,
               ),
             ),
           ),

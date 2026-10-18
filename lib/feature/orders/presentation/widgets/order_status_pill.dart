@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 
@@ -22,9 +23,9 @@ class OrderStatusPill extends StatelessWidget {
       OrderStatus.delivered => colors.success,
     };
     final icon = switch (status) {
-      OrderStatus.placed => Icons.check_circle_outline_rounded,
-      OrderStatus.onTheWay => Icons.local_shipping_outlined,
-      OrderStatus.delivered => Icons.done_all_rounded,
+      OrderStatus.placed => AppIcons.checked,
+      OrderStatus.onTheWay => AppIcons.delivery,
+      OrderStatus.delivered => AppIcons.completed,
     };
 
     return Container(

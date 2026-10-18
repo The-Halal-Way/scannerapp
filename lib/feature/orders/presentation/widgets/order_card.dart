@@ -17,14 +17,14 @@ class OrderCard extends StatelessWidget {
     final colors = context.appColors;
     return Material(
       color: colors.surfaceElevated,
-      borderRadius: BorderRadius.circular(23),
+      borderRadius: BorderRadius.circular(17),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(23),
+        borderRadius: BorderRadius.circular(17),
         child: Container(
-          padding: const EdgeInsets.all(17),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(23),
+            borderRadius: BorderRadius.circular(17),
             border: Border.all(color: colors.stroke),
           ),
           child: Column(
@@ -37,12 +37,16 @@ class OrderCard extends StatelessWidget {
                       children: [
                         Text(
                           order.id,
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.titleMedium?.copyWith(fontSize: 14),
                         ),
                         const SizedBox(height: 3),
                         Text(
                           AppFormat.shortDate(order.placedAt),
-                          style: Theme.of(context).textTheme.bodySmall,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.bodySmall?.copyWith(fontSize: 11),
                         ),
                       ],
                     ),
@@ -50,31 +54,31 @@ class OrderCard extends StatelessWidget {
                   OrderStatusPill(status: order.status),
                 ],
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 8),
               Divider(height: 1, color: colors.stroke),
-              const SizedBox(height: 15),
+              const SizedBox(height: 8),
               Row(
                 children: [
                   SizedBox(
-                    width: 106,
-                    height: 50,
+                    width: 80,
+                    height: 36,
                     child: Stack(
                       children: [
                         for (var i = 0; i < order.items.length && i < 3; i++)
                           Positioned(
-                            left: i * 29,
+                            left: i * 22,
                             child: Container(
-                              width: 50,
-                              height: 50,
+                              width: 36,
+                              height: 36,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
+                                borderRadius: BorderRadius.circular(10),
                                 border: Border.all(
                                   color: colors.surface,
-                                  width: 2,
+                                  width: 1.5,
                                 ),
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(8),
                                 child: ProductVisual(
                                   name: order.items[i].product.name,
                                   category: DemoCatalog.categoryById(
@@ -91,7 +95,9 @@ class OrderCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       '${order.itemCount} units · ${order.items.length} products',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodySmall?.copyWith(fontSize: 10),
                     ),
                   ),
                   Column(
@@ -99,14 +105,15 @@ class OrderCard extends StatelessWidget {
                     children: [
                       Text(
                         AppFormat.money(order.total),
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium?.copyWith(color: colors.brand),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(color: colors.brand, fontSize: 14),
                       ),
                       const SizedBox(height: 2),
                       Text(
                         'View details →',
-                        style: Theme.of(context).textTheme.labelSmall,
+                        style: Theme.of(
+                          context,
+                        ).textTheme.labelSmall?.copyWith(fontSize: 9),
                       ),
                     ],
                   ),

@@ -30,41 +30,11 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/
-    - assets/icons/
-    - assets/fonts/
-    - assets/translations/
+    - assets/images/companies/
+    - assets/fonts/manrope/OFL.txt
 
   fonts:
-    - family: Rubik_Regular
+    - family: Manrope
       fonts:
-        - asset: assets/fonts/rubik/Rubik-Regular.ttf
-
-    - family: Rubik_Medium
-      fonts:
-        - asset: assets/fonts/rubik/Rubik-Medium.ttf
-
-    - family: Rubik_Bold
-      fonts:
-        - asset: assets/fonts/rubik/Rubik-Bold.ttf
-
-    - family: Rubik_Black
-      fonts:
-        - asset: assets/fonts/rubik/Rubik-Black.ttf
-
-    - family: Poppins_Regular
-      fonts:
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-
-    - family: Poppins_Medium
-      fonts:
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
-
-    - family: Poppins_Bold
-      fonts:
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
-
-    - family: Poppins_Black
-      fonts:
-        - asset: assets/fonts/poppins/Poppins-Black.ttf
+        - asset: assets/fonts/manrope/Manrope-Variable.ttf
 

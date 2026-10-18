@@ -4,10 +4,14 @@ class Company {
     required this.name,
     required this.shortName,
     required this.tagline,
+    required this.logoAsset,
+    this.logoOnDark = false,
   });
 
   final String id;
   final String name;
   final String shortName;
   final String tagline;
+  final String logoAsset;
+  final bool logoOnDark;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class SearchCatalogHeader extends StatelessWidget {
@@ -25,7 +26,7 @@ class SearchCatalogHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.appColors;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      padding: const EdgeInsets.fromLTRB(13, 20, 13, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -49,7 +50,7 @@ class SearchCatalogHeader extends StatelessWidget {
                       color: colors.brand,
                       fontSize: 10,
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 1.1,
+                      letterSpacing: .15,
                     ),
                   ),
                 ),
@@ -61,7 +62,7 @@ class SearchCatalogHeader extends StatelessWidget {
                   IconButton.outlined(
                     tooltip: 'Open cart',
                     onPressed: onCartTap,
-                    icon: const Icon(Icons.shopping_bag_outlined),
+                    icon: const Icon(AppIcons.bag),
                   ),
                   if (cartCount > 0)
                     Positioned(
@@ -128,7 +129,7 @@ class SearchCatalogHeader extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.search_rounded, color: colors.brand),
+                      Icon(AppIcons.search, color: colors.brand),
                       const SizedBox(width: 10),
                       Expanded(
                         child: TextField(
@@ -150,7 +151,7 @@ class SearchCatalogHeader extends StatelessWidget {
                         IconButton(
                           tooltip: 'Clear search',
                           onPressed: onClearQuery,
-                          icon: const Icon(Icons.close_rounded, size: 18),
+                          icon: const Icon(AppIcons.close, size: 18),
                         ),
                     ],
                   ),
@@ -173,7 +174,7 @@ class SearchCatalogHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16),
                         ),
                       ),
-                      child: const Icon(Icons.tune_rounded, size: 23),
+                      child: const Icon(AppIcons.filter, size: 23),
                     ),
                   ),
                   if (activeFilterCount > 0)

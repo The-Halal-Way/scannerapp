@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/profile/presentation/providers/profile_provider.dart';
@@ -72,7 +73,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
           else
             TextButton.icon(
               onPressed: () => setState(() => _editing = true),
-              icon: const Icon(Icons.edit_outlined, size: 17),
+              icon: const Icon(AppIcons.edit, size: 17),
               label: const Text('Edit'),
             ),
           const SizedBox(width: 8),
@@ -91,7 +92,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Full name',
                 controller: _name,
-                icon: Icons.person_outline_rounded,
+                icon: AppIcons.person,
                 editing: _editing,
                 validator: _required,
               ),
@@ -99,7 +100,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Email address',
                 controller: _email,
-                icon: Icons.alternate_email_rounded,
+                icon: AppIcons.at,
                 editing: _editing,
                 keyboardType: TextInputType.emailAddress,
                 validator: _validateEmail,
@@ -108,7 +109,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Phone number',
                 controller: _phone,
-                icon: Icons.call_outlined,
+                icon: AppIcons.phone,
                 editing: _editing,
                 keyboardType: TextInputType.phone,
                 validator: _required,
@@ -119,7 +120,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Pharmacy name',
                 controller: _pharmacy,
-                icon: Icons.local_pharmacy_outlined,
+                icon: AppIcons.medical,
                 editing: _editing,
                 validator: _required,
               ),
@@ -127,7 +128,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Delivery area',
                 controller: _deliveryArea,
-                icon: Icons.location_city_outlined,
+                icon: AppIcons.company,
                 editing: _editing,
                 validator: _required,
               ),
@@ -135,7 +136,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
               ProfileTextField(
                 label: 'Street address',
                 controller: _address,
-                icon: Icons.place_outlined,
+                icon: AppIcons.location,
                 editing: _editing,
                 maxLines: 2,
                 validator: _required,
@@ -146,7 +147,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
                   width: double.infinity,
                   child: FilledButton.icon(
                     onPressed: _save,
-                    icon: const Icon(Icons.check_rounded),
+                    icon: const Icon(AppIcons.check),
                     label: const Text('Save changes'),
                   ),
                 ),
@@ -162,7 +163,7 @@ class _ProfileDetailsContentState extends State<_ProfileDetailsContent> {
       text.labelSmall?.copyWith(
         color: colors.textMuted,
         fontWeight: FontWeight.w800,
-        letterSpacing: 1.3,
+        letterSpacing: .15,
       );
 
   String? _required(String? value) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class InboxHero extends StatelessWidget {
@@ -47,7 +48,7 @@ class InboxHero extends StatelessWidget {
                       style: text.labelSmall?.copyWith(
                         color: colors.cyan,
                         fontWeight: FontWeight.w800,
-                        letterSpacing: 1.4,
+                        letterSpacing: .15,
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -81,10 +82,7 @@ class InboxHero extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.16),
                   ),
                 ),
-                child: const Icon(
-                  Icons.mark_email_unread_rounded,
-                  color: Colors.white,
-                ),
+                child: const Icon(AppIcons.unreadMail, color: Colors.white),
               ),
             ],
           ),

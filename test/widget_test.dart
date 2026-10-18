@@ -18,7 +18,7 @@ void main() {
 
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
-    expect(find.text('Our partners'), findsOneWidget);
+    expect(find.text('Manufacturers'), findsOneWidget);
 
     await tester.tap(find.text('Orders'));
     await tester.pumpAndSettle();

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scannerapp/config/theme/app_component_themes.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/config/theme/app_typography.dart';
+import 'package:scannerapp/core/constants/my_string.dart';
 
 abstract final class AppTheme {
   static final visualDensity = VisualDensity.adaptivePlatformDensity;
@@ -125,6 +126,7 @@ abstract final class AppTheme {
     final textTheme = AppTypography.build(colors);
 
     return ThemeData(
+      fontFamily: MyString.appFont,
       useMaterial3: true,
       brightness: brightness,
       visualDensity: visualDensity,

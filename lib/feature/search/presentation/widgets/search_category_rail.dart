@@ -17,7 +17,7 @@ class SearchCategoryRail extends StatelessWidget {
     return SizedBox(
       height: 44,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 13),
         scrollDirection: Axis.horizontal,
         itemCount: DemoCatalog.categories.length + 1,
         separatorBuilder: (_, _) => const SizedBox(width: 8),

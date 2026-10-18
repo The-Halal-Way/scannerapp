@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 /// Frosted-glass call-to-action card used inside gradient hero sections.
@@ -60,7 +61,7 @@ class HeroActionCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Icon(
-                    Icons.north_east_rounded,
+                    AppIcons.outward,
                     color: Colors.white.withValues(alpha: 0.5),
                     size: 16.sp,
                   ),

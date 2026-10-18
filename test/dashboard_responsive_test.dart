@@ -33,7 +33,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      expect(find.text('Our partners'), findsOneWidget);
+      expect(find.text('Manufacturers'), findsOneWidget);
       expect(tester.takeException(), isNull);
     });
   }

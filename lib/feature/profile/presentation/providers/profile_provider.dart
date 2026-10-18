@@ -4,9 +4,9 @@ import 'package:scannerapp/core/global_service.dart';
 class ProfileProvider extends ChangeNotifier {
   ProfileProvider._() {
     final user = GlobalService.instance.currentUser;
-    _name = user?.username ?? 'Ayesha Rahman';
-    _pharmacyName = user?.pharmacyName ?? 'Green Cross Pharmacy';
-    _email = user?.email ?? 'ayesha@greencross.com';
+    _name = user?.username ?? 'Jb Jason';
+    _pharmacyName = user?.pharmacyName ?? 'CarePoint Pharmacy';
+    _email = user?.email ?? 'jb@carepoint.demo';
     _phone = user?.phone ?? '+880 1700 123456';
     _address = user?.address ?? '12 Lake Road, Dhanmondi';
     _deliveryArea = user?.deliveryArea ?? 'Dhaka, Bangladesh';

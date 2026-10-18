@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class DashboardHeader extends StatelessWidget {
@@ -24,13 +25,13 @@ class DashboardHeader extends StatelessWidget {
     final firstName = name.trim().split(' ').first;
 
     return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 15.h, 20.w, 0),
+      padding: EdgeInsets.fromLTRB(13.w, 10.h, 13.w, 0),
       child: Column(
         children: [
           Row(
             children: [
               _BrandMark(color: colors.brand),
-              SizedBox(width: 10.w),
+              SizedBox(width: 9.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,17 +43,17 @@ class DashboardHeader extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         color: colors.brand,
                         fontWeight: FontWeight.w800,
-                        letterSpacing: 2.4,
+                        letterSpacing: .15,
                       ),
                     ),
                     SizedBox(height: 2.h),
                     Text(
-                      'Hello, $firstName',
+                      'Hello, ${name.trim()}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w800,
-                        letterSpacing: -0.7,
+                        letterSpacing: -.4,
                       ),
                     ),
                   ],
@@ -60,18 +61,18 @@ class DashboardHeader extends StatelessWidget {
               ),
               SizedBox(width: 8.w),
               _HeaderAction(
-                icon: Icons.shopping_bag_outlined,
+                icon: AppIcons.bag,
                 label: 'Open cart',
                 count: cartCount,
                 onTap: onCartTap,
               ),
-              SizedBox(width: 9.w),
+              SizedBox(width: 7.w),
               InkWell(
                 onTap: onProfileTap,
                 borderRadius: BorderRadius.circular(16.r),
                 child: Container(
-                  height: 46.r,
-                  width: 46.r,
+                  height: 42.r,
+                  width: 42.r,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -99,7 +100,7 @@ class DashboardHeader extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 22.h),
+          SizedBox(height: 16.h),
           Material(
             color: colors.surfaceElevated,
             borderRadius: BorderRadius.circular(18.r),
@@ -107,7 +108,7 @@ class DashboardHeader extends StatelessWidget {
               onTap: onSearchTap,
               borderRadius: BorderRadius.circular(18.r),
               child: Container(
-                height: 55.h,
+                height: 49.h,
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 decoration: BoxDecoration(
                   border: Border.all(color: colors.stroke),
@@ -115,11 +116,7 @@ class DashboardHeader extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.search_rounded,
-                      color: colors.brand,
-                      size: 23.sp,
-                    ),
+                    Icon(AppIcons.search, color: colors.brand, size: 23.sp),
                     SizedBox(width: 11.w),
                     Expanded(
                       child: Text(
@@ -134,7 +131,7 @@ class DashboardHeader extends StatelessWidget {
                     ),
                     Container(width: 1, height: 22.h, color: colors.stroke),
                     SizedBox(width: 12.w),
-                    Icon(Icons.tune_rounded, color: colors.brand, size: 21.sp),
+                    Icon(AppIcons.filter, color: colors.brand, size: 21.sp),
                   ],
                 ),
               ),
@@ -154,13 +151,13 @@ class _BrandMark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 43.r,
-      height: 43.r,
+      width: 42.r,
+      height: 42.r,
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(14.r),
       ),
-      child: Icon(Icons.medical_services_rounded, color: color, size: 23.sp),
+      child: Icon(AppIcons.medical, color: color, size: 23.sp),
     );
   }
 }
@@ -191,8 +188,8 @@ class _HeaderAction extends StatelessWidget {
           clipBehavior: Clip.none,
           children: [
             Container(
-              width: 46.r,
-              height: 46.r,
+              width: 42.r,
+              height: 42.r,
               decoration: BoxDecoration(
                 color: colors.surfaceElevated,
                 borderRadius: BorderRadius.circular(16.r),

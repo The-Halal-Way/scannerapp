@@ -60,7 +60,7 @@ class ProfileDetailsHeader extends StatelessWidget {
               style: text.labelSmall?.copyWith(
                 color: colors.cyan,
                 fontWeight: FontWeight.w800,
-                letterSpacing: 1.1,
+                letterSpacing: .15,
               ),
             ),
           ),

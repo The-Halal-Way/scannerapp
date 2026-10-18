@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class SettingsActionTile extends StatelessWidget {
@@ -50,7 +51,7 @@ class SettingsActionTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right_rounded, color: colors.textMuted),
+            Icon(AppIcons.forwardSmall, color: colors.textMuted),
           ],
         ),
       ),

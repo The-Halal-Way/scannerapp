@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/profile/presentation/providers/profile_provider.dart';
 
@@ -85,7 +86,7 @@ class SettingsProfileCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   const Icon(
-                    Icons.arrow_forward_ios_rounded,
+                    AppIcons.forwardSmall,
                     color: Colors.white,
                     size: 17,
                   ),

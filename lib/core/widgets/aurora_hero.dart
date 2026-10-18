@@ -97,7 +97,7 @@ class AuroraHero extends StatelessWidget {
                         style: textTheme.labelSmall?.copyWith(
                           color: colors.cyan,
                           fontWeight: FontWeight.w800,
-                          letterSpacing: 1.2,
+                          letterSpacing: .15,
                         ),
                       ),
                       SizedBox(height: compact ? 4.h : 6.h),
@@ -180,7 +180,7 @@ class _SignalMark extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall?.copyWith(
                 color: Colors.white.withValues(alpha: 0.78),
                 fontWeight: FontWeight.w800,
-                letterSpacing: 0.8,
+                letterSpacing: .15,
               ),
             ),
           ],

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/global_service.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
-import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_category_card.dart';
+import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_category_grid.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_company_card.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_header.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_product_card.dart';
@@ -49,7 +50,7 @@ class DashboardScreen extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: 32.h),
+          padding: EdgeInsets.only(bottom: 17.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -60,72 +61,74 @@ class DashboardScreen extends StatelessWidget {
                 onCartTap: onCartTap,
                 onProfileTap: onProfileTap,
               ),
-              SizedBox(height: 21.h),
-              DashboardPromoBanner(onExploreTap: onOffersTap ?? onSearchTap),
-              SizedBox(height: 32.h),
+              SizedBox(height: 11.h),
+              DashboardPromoBanner(
+                onExploreTap: onOffersTap ?? onSearchTap,
+                onBrowseTap: onSearchTap,
+              ),
+              SizedBox(height: 16.h),
               DashboardSectionHeader(
-                title: 'Our partners',
-                subtitle: 'Brands you can count on',
+                title: 'Manufacturers',
+                icon: AppIcons.company,
+                accent: colors.cyan,
                 onActionTap: onSearchTap,
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 3.5.h),
               _horizontalList(
-                height: 67.h,
+                height: 58.h,
                 count: DemoCatalog.companies.length,
                 itemBuilder: (index) {
                   final company = DemoCatalog.companies[index];
                   return DashboardCompanyCard(
-                    name: company.name,
-                    index: index,
+                    company: company,
                     onTap: () => onCompanyTap?.call(company.id),
                   );
                 },
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 16.h),
               DashboardSectionHeader(
                 title: 'Categories',
-                subtitle: 'Find just what you need',
+                icon: AppIcons.category,
+                accent: colors.violet,
                 onActionTap: onSearchTap,
               ),
-              SizedBox(height: 16.h),
-              _horizontalList(
-                height: 112.h,
-                count: DemoCatalog.categories.length,
-                itemBuilder: (index) {
-                  final category = DemoCatalog.categories[index];
-                  return DashboardCategoryCard(
-                    name: category.name,
-                    index: index,
-                    onTap: () => onCategoryTap?.call(category.id),
-                  );
-                },
-              ),
-              SizedBox(height: 29.h),
-              DashboardSectionHeader(
-                title: 'Popular right now',
-                subtitle: 'Pharmacy favorites',
-                onActionTap: onSearchTap,
+              SizedBox(height: 3.5.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 13.w),
+                child: DashboardCategoryGrid(
+                  categories: DemoCatalog.categories,
+                  onCategoryTap: onCategoryTap,
+                ),
               ),
               SizedBox(height: 15.h),
+              DashboardSectionHeader(
+                title: 'Popular picks',
+                icon: AppIcons.sparkle,
+                accent: colors.coral,
+                onActionTap: onSearchTap,
+              ),
+              SizedBox(height: 3.5.h),
               _productList(context, popular, shop),
-              SizedBox(height: 30.h),
+              SizedBox(height: 16.h),
               DashboardSectionHeader(
                 title: 'Special offers',
-                subtitle: 'More value for your shelf',
+                icon: AppIcons.offer,
+                accent: colors.warning,
                 onActionTap: onOffersTap ?? onSearchTap,
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 3.5.h),
               _productList(context, offers, shop),
-              SizedBox(height: 30.h),
+              SizedBox(height: 16.h),
               DashboardSectionHeader(
-                title: 'Explore products',
-                subtitle: 'Curated for your pharmacy',
+                title: 'All products',
+                icon: AppIcons.medicine,
+                accent: colors.success,
                 actionLabel: 'Browse all',
                 onActionTap: onSearchTap,
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 3.5.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                padding: EdgeInsets.symmetric(horizontal: 13.w),
                 child: LayoutBuilder(
                   builder: (context, constraints) {
                     final columns = constraints.maxWidth >= 850
@@ -140,8 +143,8 @@ class DashboardScreen extends StatelessWidget {
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: columns,
                         crossAxisSpacing: 12.w,
-                        mainAxisSpacing: 12.h,
-                        mainAxisExtent: 252.h,
+                        mainAxisSpacing: 8.h,
+                        mainAxisExtent: 186.h,
                       ),
                       itemBuilder: (context, index) => _buildProductCard(
                         context,
@@ -168,7 +171,7 @@ class DashboardScreen extends StatelessWidget {
       height: height,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 13.w),
         itemCount: count,
         separatorBuilder: (_, _) => SizedBox(width: 10.w),
         itemBuilder: (context, index) => itemBuilder(index),
@@ -182,14 +185,14 @@ class DashboardScreen extends StatelessWidget {
     ShopProvider shop,
   ) {
     return SizedBox(
-      height: 252.h,
+      height: 186.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 13.w),
         itemCount: products.length,
         separatorBuilder: (_, _) => SizedBox(width: 11.w),
         itemBuilder: (context, index) => SizedBox(
-          width: 165.w,
+          width: 127.w,
           child: _buildProductCard(context, products[index], shop),
         ),
       ),
@@ -204,7 +207,7 @@ class DashboardScreen extends StatelessWidget {
     return DashboardProductCard(
       product: product,
       categoryName: DemoCatalog.categoryById(product.categoryId).name,
-      companyName: DemoCatalog.companyById(product.companyId).name,
+      companyName: DemoCatalog.companyById(product.companyId).shortName,
       cartQuantity: shop.cartQuantityFor(product),
       onTap: () => onProductTap?.call(product),
       onAddTap: () {

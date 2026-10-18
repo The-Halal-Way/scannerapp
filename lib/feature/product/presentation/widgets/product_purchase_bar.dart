@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class ProductPurchaseBar extends StatelessWidget {
@@ -56,7 +57,7 @@ class ProductPurchaseBar extends StatelessWidget {
                   IconButton(
                     tooltip: 'Decrease quantity',
                     onPressed: available && quantity > 1 ? onDecrease : null,
-                    icon: const Icon(Icons.remove_rounded, size: 17),
+                    icon: const Icon(AppIcons.remove, size: 17),
                     visualDensity: VisualDensity.compact,
                   ),
                   Expanded(
@@ -74,7 +75,7 @@ class ProductPurchaseBar extends StatelessWidget {
                     onPressed: available && quantity < remaining
                         ? onIncrease
                         : null,
-                    icon: const Icon(Icons.add_rounded, size: 17),
+                    icon: const Icon(AppIcons.add, size: 17),
                     visualDensity: VisualDensity.compact,
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
@@ -55,10 +56,7 @@ class SearchFilterSheet extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(22, 21, 22, 22),
                 children: [
-                  _FilterHeading(
-                    title: 'Category',
-                    icon: Icons.category_outlined,
-                  ),
+                  _FilterHeading(title: 'Category', icon: AppIcons.category),
                   const SizedBox(height: 13),
                   Wrap(
                     spacing: 8,
@@ -78,10 +76,7 @@ class SearchFilterSheet extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 26),
-                  _FilterHeading(
-                    title: 'Company',
-                    icon: Icons.business_outlined,
-                  ),
+                  _FilterHeading(title: 'Company', icon: AppIcons.company),
                   const SizedBox(height: 13),
                   Wrap(
                     spacing: 8,
@@ -101,10 +96,7 @@ class SearchFilterSheet extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 26),
-                  _FilterHeading(
-                    title: 'Price range',
-                    icon: Icons.payments_outlined,
-                  ),
+                  _FilterHeading(title: 'Price range', icon: AppIcons.payment),
                   const SizedBox(height: 4),
                   Row(
                     children: [
@@ -131,10 +123,7 @@ class SearchFilterSheet extends StatelessWidget {
                     onChanged: filters.setPriceRange,
                   ),
                   const SizedBox(height: 7),
-                  _FilterHeading(
-                    title: 'Availability',
-                    icon: Icons.inventory_2_outlined,
-                  ),
+                  _FilterHeading(title: 'Availability', icon: AppIcons.package),
                   const SizedBox(height: 10),
                   _ToggleRow(
                     title: 'In stock only',
@@ -159,7 +148,7 @@ class SearchFilterSheet extends StatelessWidget {
                 height: 52,
                 child: FilledButton.icon(
                   onPressed: onApply,
-                  icon: const Icon(Icons.check_rounded),
+                  icon: const Icon(AppIcons.check),
                   label: Text('Show ${filters.results.length} products'),
                 ),
               ),

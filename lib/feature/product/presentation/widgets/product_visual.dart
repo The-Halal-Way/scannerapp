@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 /// A small, asset-free pack illustration used throughout the demo catalog.
@@ -19,6 +21,7 @@ class ProductVisual extends StatelessWidget {
     final colors = context.appColors;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final accent = _accentFor(category, colors);
+    final secondary = Color.lerp(accent, colors.violet, .38)!;
     final icon = _iconFor(category);
 
     return LayoutBuilder(
@@ -44,7 +47,7 @@ class ProductVisual extends StatelessWidget {
                 colors: [
                   accent.withValues(alpha: isDark ? .23 : .16),
                   colors.surfaceElevated,
-                  colors.cyan.withValues(alpha: isDark ? .15 : .08),
+                  secondary.withValues(alpha: isDark ? .17 : .10),
                 ],
               ),
             ),
@@ -64,7 +67,7 @@ class ProductVisual extends StatelessWidget {
                   bottom: -side * .4,
                   child: _Halo(
                     size: side * .84,
-                    color: colors.cyan.withValues(alpha: .1),
+                    color: secondary.withValues(alpha: .11),
                   ),
                 ),
                 Center(
@@ -139,7 +142,7 @@ class ProductVisual extends StatelessWidget {
                                         maxLines: 1,
                                         style: TextStyle(
                                           color: colors.textMuted,
-                                          letterSpacing: 1.1,
+                                          letterSpacing: .15,
                                           fontWeight: FontWeight.w700,
                                           fontSize: 6,
                                         ),
@@ -170,8 +173,12 @@ class ProductVisual extends StatelessWidget {
   static Color _accentFor(String category, AppThemeColors colors) {
     final text = category.toLowerCase();
     if (text.contains('vitamin') || text.contains('supplement')) {
-      return colors.coral;
+      return colors.warning;
     }
+    if (text.contains('digestive')) return colors.cyan;
+    if (text.contains('diabetes')) return colors.violet;
+    if (text.contains('cold')) return colors.coral;
+    if (text.contains('heart')) return colors.coral;
     if (text.contains('skin') || text.contains('care')) {
       return colors.violet;
     }
@@ -187,18 +194,22 @@ class ProductVisual extends StatelessWidget {
   static IconData _iconFor(String category) {
     final text = category.toLowerCase();
     if (text.contains('vitamin') || text.contains('supplement')) {
-      return Icons.spa_rounded;
+      return CupertinoIcons.sun_max_fill;
     }
+    if (text.contains('digestive')) return CupertinoIcons.flame_fill;
+    if (text.contains('diabetes')) return CupertinoIcons.drop_fill;
+    if (text.contains('cold')) return CupertinoIcons.thermometer_snowflake;
+    if (text.contains('heart')) return CupertinoIcons.heart_fill;
     if (text.contains('skin') || text.contains('care')) {
-      return Icons.water_drop_rounded;
+      return AppIcons.liquid;
     }
     if (text.contains('device') || text.contains('equipment')) {
-      return Icons.monitor_heart_rounded;
+      return AppIcons.heart;
     }
     if (text.contains('first') || text.contains('surgical')) {
-      return Icons.medical_services_rounded;
+      return AppIcons.medical;
     }
-    return Icons.medication_rounded;
+    return AppIcons.medicine;
   }
 }
 

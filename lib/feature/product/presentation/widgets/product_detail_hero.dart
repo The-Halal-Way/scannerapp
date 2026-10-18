@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
@@ -68,10 +69,7 @@ class ProductDetailHero extends StatelessWidget {
               right: 18,
               child: Row(
                 children: [
-                  _HeroIconButton(
-                    icon: Icons.arrow_back_rounded,
-                    onTap: onBack,
-                  ),
+                  _HeroIconButton(icon: AppIcons.back, onTap: onBack),
                   const Spacer(),
                   const Text(
                     'PRODUCT DETAILS',
@@ -79,17 +77,14 @@ class ProductDetailHero extends StatelessWidget {
                       color: Colors.white70,
                       fontSize: 10,
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 1.6,
+                      letterSpacing: .15,
                     ),
                   ),
                   const Spacer(),
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      _HeroIconButton(
-                        icon: Icons.shopping_bag_outlined,
-                        onTap: onCartTap,
-                      ),
+                      _HeroIconButton(icon: AppIcons.bag, onTap: onCartTap),
                       if (cartCount > 0)
                         Positioned(
                           right: -4,
@@ -155,7 +150,7 @@ class ProductDetailHero extends StatelessWidget {
                 children: [
                   Flexible(
                     child: _HeroLabel(
-                      icon: Icons.verified_rounded,
+                      icon: AppIcons.verified,
                       text: 'TRUSTED SUPPLY',
                     ),
                   ),
@@ -163,7 +158,7 @@ class ProductDetailHero extends StatelessWidget {
                     const SizedBox(width: 8),
                     Flexible(
                       child: _HeroLabel(
-                        icon: Icons.local_offer_rounded,
+                        icon: AppIcons.offer,
                         text: 'SAVE ${product.discountPercent}%',
                         highlighted: true,
                       ),
@@ -238,7 +233,7 @@ class _HeroLabel extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 9,
                 fontWeight: FontWeight.w900,
-                letterSpacing: .5,
+                letterSpacing: .15,
               ),
             ),
           ),

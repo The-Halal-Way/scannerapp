@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
@@ -67,8 +68,8 @@ class CartItemTile extends StatelessWidget {
                   children: [
                     _QuantityButton(
                       icon: item.quantity == 1
-                          ? Icons.delete_outline_rounded
-                          : Icons.remove_rounded,
+                          ? AppIcons.delete
+                          : AppIcons.remove,
                       label: 'Decrease ${product.name} quantity',
                       onTap: () =>
                           store.setCartQuantity(product, item.quantity - 1),
@@ -82,7 +83,7 @@ class CartItemTile extends StatelessWidget {
                       ),
                     ),
                     _QuantityButton(
-                      icon: Icons.add_rounded,
+                      icon: AppIcons.add,
                       label: 'Increase ${product.name} quantity',
                       onTap: item.quantity >= product.stock
                           ? null

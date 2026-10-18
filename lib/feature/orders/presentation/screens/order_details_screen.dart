@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/global_service.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
@@ -39,7 +40,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   'ORDER ${order.id}',
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                     color: Colors.white70,
-                    letterSpacing: 1.2,
+                    letterSpacing: .15,
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -130,7 +131,7 @@ class OrderDetailsScreen extends StatelessWidget {
           _DetailsCard(
             child: Row(
               children: [
-                Icon(Icons.location_on_rounded, color: colors.brand),
+                Icon(AppIcons.location, color: colors.brand),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(

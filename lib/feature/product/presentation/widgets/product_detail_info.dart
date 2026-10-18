@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
@@ -45,7 +46,7 @@ class ProductDetailInfo extends StatelessWidget {
                     color: colors.brand,
                     fontSize: 10,
                     fontWeight: FontWeight.w900,
-                    letterSpacing: 1,
+                    letterSpacing: .15,
                   ),
                 ),
               ),
@@ -62,7 +63,7 @@ class ProductDetailInfo extends StatelessWidget {
                     color: product.stock > 0 ? colors.success : colors.danger,
                     fontSize: 9,
                     fontWeight: FontWeight.w900,
-                    letterSpacing: .4,
+                    letterSpacing: .15,
                   ),
                 ),
               ),
@@ -108,7 +109,7 @@ class ProductDetailInfo extends StatelessWidget {
                           color: colors.textMuted,
                           fontWeight: FontWeight.w900,
                           fontSize: 9,
-                          letterSpacing: 1.2,
+                          letterSpacing: .15,
                         ),
                       ),
                       const SizedBox(height: 5),
@@ -158,11 +159,7 @@ class ProductDetailInfo extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Icon(
-                          Icons.trending_down_rounded,
-                          color: colors.coral,
-                          size: 19,
-                        ),
+                        Icon(AppIcons.priceDrop, color: colors.coral, size: 19),
                         Text(
                           '${product.discountPercent}% OFF',
                           style: TextStyle(
@@ -194,7 +191,7 @@ class ProductDetailInfo extends StatelessWidget {
             children: [
               Expanded(
                 child: _DetailTile(
-                  icon: Icons.category_outlined,
+                  icon: AppIcons.category,
                   label: 'CATEGORY',
                   value: category.name,
                 ),
@@ -202,7 +199,7 @@ class ProductDetailInfo extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: _DetailTile(
-                  icon: Icons.inventory_2_outlined,
+                  icon: AppIcons.package,
                   label: 'PACK SIZE',
                   value: product.unit,
                 ),
@@ -214,7 +211,7 @@ class ProductDetailInfo extends StatelessWidget {
             children: [
               Expanded(
                 child: _DetailTile(
-                  icon: Icons.business_outlined,
+                  icon: AppIcons.company,
                   label: 'MANUFACTURER',
                   value: company.name,
                 ),
@@ -222,7 +219,7 @@ class ProductDetailInfo extends StatelessWidget {
               const SizedBox(width: 10),
               Expanded(
                 child: _DetailTile(
-                  icon: Icons.local_shipping_outlined,
+                  icon: AppIcons.delivery,
                   label: 'AVAILABLE',
                   value: '${product.stock} packs',
                 ),
@@ -273,7 +270,7 @@ class _DetailTile extends StatelessWidget {
                     color: colors.textMuted,
                     fontWeight: FontWeight.w800,
                     fontSize: 8,
-                    letterSpacing: .7,
+                    letterSpacing: .15,
                   ),
                 ),
               ),

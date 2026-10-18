@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
@@ -112,10 +113,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     )
                   else
                     SliverPadding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 28),
+                      padding: const EdgeInsets.fromLTRB(13, 0, 13, 28),
                       sliver: SliverList(
                         delegate: SliverChildBuilderDelegate((context, index) {
-                          if (index.isOdd) return const SizedBox(height: 11);
+                          if (index.isOdd) return const SizedBox(height: 9);
                           final product = results[index ~/ 2];
                           return ProductResultCard(
                             product: product,
@@ -206,7 +207,7 @@ class _ResultsToolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.appColors;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 20, 14),
+      padding: const EdgeInsets.fromLTRB(13, 24, 13, 14),
       child: Row(
         children: [
           Expanded(
@@ -255,7 +256,7 @@ class _ResultsToolbar extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.swap_vert_rounded, size: 17, color: colors.brand),
+                  Icon(AppIcons.sort, size: 17, color: colors.brand),
                   const SizedBox(width: 3),
                   Text(
                     _sortLabel(filters.sort),
@@ -299,11 +300,7 @@ class _EmptyResults extends StatelessWidget {
               color: colors.brand.withValues(alpha: .1),
               borderRadius: BorderRadius.circular(26),
             ),
-            child: Icon(
-              Icons.search_off_rounded,
-              size: 40,
-              color: colors.brand,
-            ),
+            child: Icon(AppIcons.search, size: 40, color: colors.brand),
           ),
           const SizedBox(height: 20),
           Text('No matches yet', style: Theme.of(context).textTheme.titleLarge),
@@ -316,7 +313,7 @@ class _EmptyResults extends StatelessWidget {
           const SizedBox(height: 18),
           OutlinedButton.icon(
             onPressed: onClear,
-            icon: const Icon(Icons.refresh_rounded),
+            icon: const Icon(AppIcons.refresh),
             label: const Text('Clear search & filters'),
           ),
         ],

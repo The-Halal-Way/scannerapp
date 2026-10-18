@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/inbox/data/models/inbox_message.dart';
 
@@ -115,7 +116,7 @@ Color categoryColor(AppThemeColors colors, InboxCategory category) =>
     };
 
 IconData categoryIcon(InboxCategory category) => switch (category) {
-  InboxCategory.orders => Icons.local_shipping_outlined,
-  InboxCategory.offers => Icons.local_offer_outlined,
-  InboxCategory.updates => Icons.auto_awesome_outlined,
+  InboxCategory.orders => AppIcons.delivery,
+  InboxCategory.offers => AppIcons.offer,
+  InboxCategory.updates => AppIcons.sparkle,
 };
