@@ -32,6 +32,14 @@ class SearchCatalogHeader extends StatelessWidget {
         children: [
           Row(
             children: [
+              if (Navigator.of(context).canPop()) ...[
+                IconButton(
+                  tooltip: 'Back',
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(AppIcons.back),
+                ),
+                const SizedBox(width: 4),
+              ],
               Flexible(
                 child: Container(
                   padding: const EdgeInsets.symmetric(

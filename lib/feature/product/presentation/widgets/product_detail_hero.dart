@@ -4,20 +4,25 @@ import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
 import 'package:scannerapp/feature/product/presentation/widgets/product_visual.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_favorite_button.dart';
 
 class ProductDetailHero extends StatelessWidget {
   const ProductDetailHero({
     super.key,
     required this.product,
     required this.cartCount,
+    required this.isFavorite,
     required this.onBack,
     required this.onCartTap,
+    required this.onFavoriteTap,
   });
 
   final Product product;
   final int cartCount;
+  final bool isFavorite;
   final VoidCallback onBack;
   final VoidCallback onCartTap;
+  final VoidCallback onFavoriteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -70,17 +75,26 @@ class ProductDetailHero extends StatelessWidget {
               child: Row(
                 children: [
                   _HeroIconButton(icon: AppIcons.back, onTap: onBack),
-                  const Spacer(),
-                  const Text(
-                    'PRODUCT DETAILS',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: .15,
+                  const Expanded(
+                    child: Text(
+                      'PRODUCT DETAILS',
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: .15,
+                      ),
                     ),
                   ),
-                  const Spacer(),
+                  ProductFavoriteButton(
+                    isFavorite: isFavorite,
+                    onPressed: onFavoriteTap,
+                    size: 44,
+                  ),
+                  const SizedBox(width: 7),
                   Stack(
                     clipBehavior: Clip.none,
                     children: [

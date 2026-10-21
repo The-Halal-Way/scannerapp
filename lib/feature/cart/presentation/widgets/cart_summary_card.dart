@@ -35,6 +35,14 @@ class CartSummaryCard extends StatelessWidget {
                 : AppFormat.money(shop.deliveryFee),
             valueColor: shop.deliveryFee == 0 ? colors.success : null,
           ),
+          if (shop.couponDiscount > 0) ...[
+            const SizedBox(height: 11),
+            _SummaryRow(
+              label: 'Coupon (${shop.appliedCoupon!.code})',
+              value: '-${AppFormat.money(shop.couponDiscount)}',
+              valueColor: colors.success,
+            ),
+          ],
           const SizedBox(height: 15),
           Divider(color: colors.stroke, height: 1),
           const SizedBox(height: 15),

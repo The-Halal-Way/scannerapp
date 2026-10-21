@@ -3,6 +3,8 @@ import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/profile/presentation/providers/profile_provider.dart';
+import 'package:scannerapp/feature/favorites/presentation/screens/favorite_products_screen.dart';
+import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/profile/presentation/screens/profile_details_screen.dart';
 import 'package:scannerapp/feature/settings/presentation/providers/settings_provider.dart';
 import 'package:scannerapp/feature/settings/presentation/widgets/settings_action_tile.dart';
@@ -30,6 +32,7 @@ class _SettingsContent extends StatelessWidget {
     final text = Theme.of(context).textTheme;
     final profile = context.watch<ProfileProvider>();
     final settings = context.watch<SettingsProvider>();
+    final favoriteCount = context.watch<ShopProvider>().favoriteCount;
 
     return SafeArea(
       child: ListView(
@@ -53,6 +56,18 @@ class _SettingsContent extends StatelessWidget {
                 title: 'Profile details',
                 subtitle: 'Contact and pharmacy information',
                 onTap: () => _openProfile(context),
+              ),
+              Divider(height: 1, indent: 70, color: colors.stroke),
+              SettingsActionTile(
+                icon: AppIcons.favorite,
+                title: 'Favorite products',
+                subtitle: '$favoriteCount saved products',
+                accent: colors.coral,
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const FavoriteProductsScreen(),
+                  ),
+                ),
               ),
             ],
           ),

@@ -3,6 +3,29 @@ import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 
 void main() {
+  test('favorites and recent purchases update within the session', () {
+    final shop = ShopProvider();
+    addTearDown(shop.dispose);
+    final product = DemoCatalog.productById('p17');
+
+    expect(shop.favoriteProducts, isEmpty);
+    shop.toggleFavorite(product);
+    expect(shop.isFavorite(product), isTrue);
+    expect(shop.favoriteProducts, [product]);
+    shop.toggleFavorite(product);
+    expect(shop.favoriteCount, 0);
+
+    shop.addToCart(product, quantity: 2);
+    shop.placeOrder();
+    expect(shop.recentPurchases.first, product);
+    shop.addToCart(product);
+    shop.placeOrder();
+    expect(
+      shop.recentPurchases.where((item) => item.id == product.id),
+      hasLength(1),
+    );
+  });
+
   test(
     'cart quantities, delivery, and placed orders stay in session state',
     () {

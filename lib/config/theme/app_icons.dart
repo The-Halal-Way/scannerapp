@@ -35,6 +35,8 @@ abstract final class AppIcons {
   static const liquid = CupertinoIcons.drop;
   static const medicine = CupertinoIcons.capsule_fill;
   static const heart = CupertinoIcons.waveform_path_ecg;
+  static const favorite = CupertinoIcons.heart;
+  static const favoriteFilled = CupertinoIcons.heart_fill;
   static const payment = CupertinoIcons.creditcard;
   static const person = CupertinoIcons.person;
   static const receipt = CupertinoIcons.doc_text;
@@ -46,4 +48,5 @@ abstract final class AppIcons {
   static const filter = CupertinoIcons.line_horizontal_3_decrease;
   static const verified = CupertinoIcons.checkmark_seal;
   static const bag = CupertinoIcons.bag;
+  static const copy = CupertinoIcons.doc_on_doc;
 }

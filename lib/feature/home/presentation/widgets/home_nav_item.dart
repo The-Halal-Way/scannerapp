@@ -20,11 +20,13 @@ class HomeNavItem extends StatelessWidget {
     required this.destination,
     required this.isSelected,
     required this.onTap,
+    this.badgeCount = 0,
   });
 
   final HomeNavDestination destination;
   final bool isSelected;
   final VoidCallback onTap;
+  final int badgeCount;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,9 @@ class HomeNavItem extends StatelessWidget {
       child: Semantics(
         selected: isSelected,
         button: true,
-        label: destination.label,
+        label: badgeCount > 0
+            ? '${destination.label}, $badgeCount items'
+            : destination.label,
         excludeSemantics: true,
         child: InkWell(
           onTap: onTap,
@@ -69,10 +73,18 @@ class HomeNavItem extends StatelessWidget {
                           ]
                         : null,
                   ),
-                  child: Icon(
-                    isSelected ? destination.selectedIcon : destination.icon,
-                    size: isSelected ? 18.sp : 20.sp,
-                    color: isSelected ? Colors.white : colors.textMuted,
+                  child: Center(
+                    child: Badge(
+                      isLabelVisible: badgeCount > 0,
+                      label: Text(badgeCount > 99 ? '99+' : '$badgeCount'),
+                      child: Icon(
+                        isSelected
+                            ? destination.selectedIcon
+                            : destination.icon,
+                        size: isSelected ? 18.sp : 20.sp,
+                        color: isSelected ? Colors.white : colors.textMuted,
+                      ),
+                    ),
                   ),
                 ),
                 SizedBox(height: 3.h),

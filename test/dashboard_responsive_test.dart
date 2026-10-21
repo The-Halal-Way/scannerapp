@@ -6,6 +6,7 @@ import 'package:scannerapp/config/theme/app_theme.dart';
 import 'package:scannerapp/core/global_service.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 
 void main() {
   for (final width in [320.0, 390.0]) {
@@ -18,7 +19,13 @@ void main() {
       await tester.pumpWidget(
         MultiProvider(
           providers: [
-            ChangeNotifierProvider(create: (_) => ShopProvider()),
+            ChangeNotifierProvider(
+              create: (_) => ShopProvider()
+                ..addToCart(
+                  DemoCatalog.products.first,
+                  quantity: DemoCatalog.products.first.stock,
+                ),
+            ),
             ChangeNotifierProvider<GlobalService>.value(
               value: GlobalService.instance,
             ),

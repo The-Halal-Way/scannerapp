@@ -121,7 +121,26 @@ class _SearchScreenState extends State<SearchScreen> {
                           return ProductResultCard(
                             product: product,
                             onTap: () => _openProduct(product),
-                            onAdd: () => _addToCart(product),
+                            onAdd: () =>
+                                context.read<ShopProvider>().addToCart(product),
+                            cartQuantity: context
+                                .watch<ShopProvider>()
+                                .cartQuantityFor(product),
+                            isFavorite: context
+                                .watch<ShopProvider>()
+                                .isFavorite(product),
+                            onDecrease: () {
+                              final shop = context.read<ShopProvider>();
+                              shop.setCartQuantity(
+                                product,
+                                shop.cartQuantityFor(product) - 1,
+                              );
+                            },
+                            onIncrease: () =>
+                                context.read<ShopProvider>().addToCart(product),
+                            onFavorite: () => context
+                                .read<ShopProvider>()
+                                .toggleFavorite(product),
                           );
                         }, childCount: results.length * 2 - 1),
                       ),
@@ -174,26 +193,6 @@ class _SearchScreenState extends State<SearchScreen> {
     Navigator.of(
       context,
     ).push(MaterialPageRoute<void>(builder: (_) => const CartScreen()));
-  }
-
-  void _addToCart(Product product) {
-    final shop = context.read<ShopProvider>();
-    final atLimit = shop.cartQuantityFor(product) >= product.stock;
-    if (!atLimit) shop.addToCart(product);
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(
-        SnackBar(
-          content: Text(
-            atLimit
-                ? 'Maximum stock already in your cart'
-                : '${product.name} added to cart',
-          ),
-          action: atLimit
-              ? null
-              : SnackBarAction(label: 'VIEW CART', onPressed: _openCart),
-        ),
-      );
   }
 }
 

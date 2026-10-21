@@ -6,6 +6,7 @@ import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/core/util/app_format.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/product/presentation/widgets/product_visual.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_favorite_button.dart';
 
 class CartItemTile extends StatelessWidget {
   const CartItemTile({super.key, required this.item});
@@ -16,7 +17,7 @@ class CartItemTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = context.appColors;
     final product = item.product;
-    final store = context.read<ShopProvider>();
+    final store = context.watch<ShopProvider>();
     final category = DemoCatalog.categoryById(product.categoryId).name;
 
     return Container(
@@ -44,11 +45,21 @@ class CartItemTile extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  product.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleSmall,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        product.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ),
+                    ProductFavoriteButton(
+                      isFavorite: store.isFavorite(product),
+                      onPressed: () => store.toggleFavorite(product),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 3),
                 Text(

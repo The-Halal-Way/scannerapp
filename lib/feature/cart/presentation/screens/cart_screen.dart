@@ -7,10 +7,14 @@ import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/core/util/app_format.dart';
 import 'package:scannerapp/feature/cart/presentation/widgets/cart_item_tile.dart';
 import 'package:scannerapp/feature/cart/presentation/widgets/cart_summary_card.dart';
+import 'package:scannerapp/feature/cart/presentation/widgets/cart_coupon_card.dart';
 import 'package:scannerapp/feature/orders/presentation/screens/order_placed_screen.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+  const CartScreen({super.key, this.embedded = false, this.onContinue});
+
+  final bool embedded;
+  final VoidCallback? onContinue;
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +26,15 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: colors.canvas,
       appBar: AppBar(
+        automaticallyImplyLeading: !embedded,
         title: Text('Your cart', style: Theme.of(context).textTheme.titleLarge),
         actions: [
           if (items.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(right: 13),
               child: Center(
                 child: Text(
-                  '${shop.cartCount} items',
+                  '${shop.cartCount} ${shop.cartCount == 1 ? 'item' : 'items'}',
                   style: Theme.of(
                     context,
                   ).textTheme.labelMedium?.copyWith(color: colors.brand),
@@ -39,9 +44,11 @@ class CartScreen extends StatelessWidget {
         ],
       ),
       body: items.isEmpty
-          ? _EmptyCart(onContinue: () => Navigator.of(context).pop())
+          ? _EmptyCart(
+              onContinue: onContinue ?? () => Navigator.of(context).pop(),
+            )
           : ListView(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 24),
+              padding: const EdgeInsets.fromLTRB(13, 8, 13, 24),
               children: [
                 Text(
                   'A healthier shelf starts here.',
@@ -57,6 +64,8 @@ class CartScreen extends StatelessWidget {
                       CartItemTile(key: ValueKey(item.product.id), item: item),
                 ),
                 const SizedBox(height: 10),
+                const CartCouponCard(),
+                const SizedBox(height: 12),
                 CartSummaryCard(shop: shop),
                 const SizedBox(height: 16),
                 Container(
@@ -99,7 +108,7 @@ class CartScreen extends StatelessWidget {
           : SafeArea(
               top: false,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+                padding: const EdgeInsets.fromLTRB(13, 12, 13, 12),
                 decoration: BoxDecoration(
                   color: colors.surface,
                   border: Border(top: BorderSide(color: colors.stroke)),
@@ -130,7 +139,7 @@ class CartScreen extends StatelessWidget {
                               .read<ShopProvider>()
                               .placeOrder();
                           if (order == null) return;
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (_) => OrderPlacedScreen(order: order),
                             ),

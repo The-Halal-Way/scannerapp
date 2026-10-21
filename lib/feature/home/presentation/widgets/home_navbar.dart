@@ -8,10 +8,12 @@ class HomeNavbar extends StatelessWidget {
     super.key,
     required this.currentPage,
     required this.onPageChange,
+    this.cartCount = 0,
   });
 
   final int currentPage;
   final ValueChanged<int> onPageChange;
+  final int cartCount;
 
   static const _items = <HomeNavDestination>[
     HomeNavDestination(
@@ -25,9 +27,9 @@ class HomeNavbar extends StatelessWidget {
       selectedIcon: Icons.receipt_long_rounded,
     ),
     HomeNavDestination(
-      label: 'Search',
-      icon: Icons.search_rounded,
-      selectedIcon: Icons.manage_search_rounded,
+      label: 'Cart',
+      icon: Icons.shopping_cart_outlined,
+      selectedIcon: Icons.shopping_cart_rounded,
     ),
     HomeNavDestination(
       label: 'Inbox',
@@ -73,6 +75,7 @@ class HomeNavbar extends StatelessWidget {
               destination: _items[index],
               isSelected: currentPage == index,
               onTap: () => onPageChange(index),
+              badgeCount: index == 2 ? cartCount : 0,
             ),
           ),
         ),

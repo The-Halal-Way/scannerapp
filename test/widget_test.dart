@@ -24,9 +24,9 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Your orders'), findsOneWidget);
 
-    await tester.tap(find.text('Search'));
+    await tester.tap(find.text('Cart'));
     await tester.pumpAndSettle();
-    expect(find.text('Explore products'), findsOneWidget);
+    expect(find.text('Your cart'), findsOneWidget);
 
     await tester.tap(find.text('Inbox'));
     await tester.pumpAndSettle();
@@ -68,9 +68,7 @@ void main() {
     expect(shop.orders.length, 3);
   });
 
-  testWidgets('offer banner opens the filtered catalog in the Search tab', (
-    tester,
-  ) async {
+  testWidgets('offer banner opens the filtered catalog', (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.resetPhysicalSize);

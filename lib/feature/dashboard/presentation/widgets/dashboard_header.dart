@@ -7,16 +7,16 @@ class DashboardHeader extends StatelessWidget {
   const DashboardHeader({
     super.key,
     required this.name,
-    required this.cartCount,
+    required this.favoriteCount,
     this.onSearchTap,
-    this.onCartTap,
+    this.onFavoritesTap,
     this.onProfileTap,
   });
 
   final String name;
-  final int cartCount;
+  final int favoriteCount;
   final VoidCallback? onSearchTap;
-  final VoidCallback? onCartTap;
+  final VoidCallback? onFavoritesTap;
   final VoidCallback? onProfileTap;
 
   @override
@@ -61,10 +61,10 @@ class DashboardHeader extends StatelessWidget {
               ),
               SizedBox(width: 8.w),
               _HeaderAction(
-                icon: AppIcons.bag,
-                label: 'Open cart',
-                count: cartCount,
-                onTap: onCartTap,
+                icon: AppIcons.favorite,
+                label: 'Open favorites',
+                count: favoriteCount,
+                onTap: onFavoritesTap,
               ),
               SizedBox(width: 7.w),
               InkWell(
@@ -181,47 +181,50 @@ class _HeaderAction extends StatelessWidget {
     return Semantics(
       button: true,
       label: count > 0 ? '$label, $count items' : label,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(16.r),
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              width: 42.r,
-              height: 42.r,
-              decoration: BoxDecoration(
-                color: colors.surfaceElevated,
-                borderRadius: BorderRadius.circular(16.r),
-                border: Border.all(color: colors.stroke),
+      child: Tooltip(
+        message: label,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(16.r),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: 42.r,
+                height: 42.r,
+                decoration: BoxDecoration(
+                  color: colors.surfaceElevated,
+                  borderRadius: BorderRadius.circular(16.r),
+                  border: Border.all(color: colors.stroke),
+                ),
+                child: Icon(icon, color: colors.textPrimary, size: 21.sp),
               ),
-              child: Icon(icon, color: colors.textPrimary, size: 21.sp),
-            ),
-            if (count > 0)
-              Positioned(
-                top: -5,
-                right: -5,
-                child: Container(
-                  height: 19.r,
-                  constraints: BoxConstraints(minWidth: 19.r),
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: colors.coral,
-                    borderRadius: BorderRadius.circular(99),
-                    border: Border.all(color: colors.canvas, width: 2),
-                  ),
-                  child: Text(
-                    '$count',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w800,
+              if (count > 0)
+                Positioned(
+                  top: -5,
+                  right: -5,
+                  child: Container(
+                    height: 19.r,
+                    constraints: BoxConstraints(minWidth: 19.r),
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: colors.coral,
+                      borderRadius: BorderRadius.circular(99),
+                      border: Border.all(color: colors.canvas, width: 2),
+                    ),
+                    child: Text(
+                      '$count',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

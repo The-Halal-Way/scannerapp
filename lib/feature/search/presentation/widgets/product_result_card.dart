@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
 import 'package:scannerapp/feature/product/presentation/widgets/product_visual.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_cart_control.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_favorite_button.dart';
 
 class ProductResultCard extends StatelessWidget {
   const ProductResultCard({
@@ -11,11 +12,21 @@ class ProductResultCard extends StatelessWidget {
     required this.product,
     required this.onTap,
     required this.onAdd,
+    this.cartQuantity = 0,
+    this.isFavorite = false,
+    this.onDecrease,
+    this.onIncrease,
+    this.onFavorite,
   });
 
   final Product product;
   final VoidCallback onTap;
   final VoidCallback onAdd;
+  final int cartQuantity;
+  final bool isFavorite;
+  final VoidCallback? onDecrease;
+  final VoidCallback? onIncrease;
+  final VoidCallback? onFavorite;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +94,15 @@ class ProductResultCard extends StatelessWidget {
                             ),
                           ),
                         ),
+                      Positioned(
+                        top: 5,
+                        right: 5,
+                        child: ProductFavoriteButton(
+                          isFavorite: isFavorite,
+                          onPressed: onFavorite ?? () {},
+                          size: 27,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -116,16 +136,10 @@ class ProductResultCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 1),
                       Text(
-                        product.genericName,
+                        '${product.genericName} · ${product.unit}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodySmall,
-                      ),
-                      Text(
-                        product.unit,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: colors.textMuted, fontSize: 10),
                       ),
                       const Spacer(),
                       Row(
@@ -154,30 +168,12 @@ class ProductResultCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            width: 33,
-                            height: 33,
-                            child: IconButton.filled(
-                              tooltip: product.stock > 0
-                                  ? 'Add to cart'
-                                  : 'Out of stock',
-                              onPressed: product.stock > 0 ? onAdd : null,
-                              constraints: const BoxConstraints.tightFor(
-                                width: 33,
-                                height: 33,
-                              ),
-                              padding: EdgeInsets.zero,
-                              style: IconButton.styleFrom(
-                                backgroundColor: colors.brand,
-                                foregroundColor: Colors.white,
-                                disabledBackgroundColor: colors.surfaceMuted,
-                                disabledForegroundColor: colors.textMuted,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              icon: const Icon(AppIcons.add, size: 18),
-                            ),
+                          ProductCartControl(
+                            quantity: cartQuantity,
+                            stock: product.stock,
+                            onAdd: onAdd,
+                            onDecrease: onDecrease ?? () {},
+                            onIncrease: onIncrease ?? () {},
                           ),
                         ],
                       ),

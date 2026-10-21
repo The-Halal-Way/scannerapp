@@ -118,6 +118,13 @@ class OrderDetailsScreen extends StatelessWidget {
                       ? 'Free'
                       : AppFormat.money(order.deliveryFee),
                 ),
+                if (order.discount > 0) ...[
+                  const SizedBox(height: 10),
+                  _AmountRow(
+                    label: 'Coupon (${order.couponCode})',
+                    value: '-${AppFormat.money(order.discount)}',
+                  ),
+                ],
                 Divider(height: 28, color: colors.stroke),
                 _AmountRow(
                   label: 'Total',

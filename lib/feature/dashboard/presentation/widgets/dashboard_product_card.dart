@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
 import 'package:scannerapp/feature/product/presentation/widgets/product_visual.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_cart_control.dart';
+import 'package:scannerapp/feature/product/presentation/widgets/product_favorite_button.dart';
 
 class DashboardProductCard extends StatelessWidget {
   const DashboardProductCard({
@@ -12,16 +13,24 @@ class DashboardProductCard extends StatelessWidget {
     required this.categoryName,
     required this.companyName,
     required this.cartQuantity,
+    required this.isFavorite,
     this.onTap,
     this.onAddTap,
+    this.onDecreaseTap,
+    this.onIncreaseTap,
+    this.onFavoriteTap,
   });
 
   final Product product;
   final String categoryName;
   final String companyName;
   final int cartQuantity;
+  final bool isFavorite;
   final VoidCallback? onTap;
   final VoidCallback? onAddTap;
+  final VoidCallback? onDecreaseTap;
+  final VoidCallback? onIncreaseTap;
+  final VoidCallback? onFavoriteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +86,15 @@ class DashboardProductCard extends StatelessWidget {
                           ),
                         ),
                       ),
+                    Positioned(
+                      top: 4.h,
+                      right: 4.w,
+                      child: ProductFavoriteButton(
+                        isFavorite: isFavorite,
+                        onPressed: onFavoriteTap ?? () {},
+                        size: 25.r,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -142,29 +160,13 @@ class DashboardProductCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Semantics(
-                    button: true,
-                    label: 'Add ${product.name} to cart',
-                    child: InkWell(
-                      onTap: onAddTap,
-                      borderRadius: BorderRadius.circular(10.r),
-                      child: Container(
-                        width: 28.r,
-                        height: 28.r,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: cartQuantity > 0
-                              ? colors.success
-                              : colors.brand,
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        child: Icon(
-                          cartQuantity > 0 ? AppIcons.addToCart : AppIcons.add,
-                          color: Colors.white,
-                          size: 16.sp,
-                        ),
-                      ),
-                    ),
+                  ProductCartControl(
+                    compact: true,
+                    quantity: cartQuantity,
+                    stock: product.stock,
+                    onAdd: onAddTap ?? () {},
+                    onDecrease: onDecreaseTap ?? () {},
+                    onIncrease: onIncreaseTap ?? () {},
                   ),
                 ],
               ),

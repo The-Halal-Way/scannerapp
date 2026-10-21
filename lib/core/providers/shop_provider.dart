@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
+import 'package:scannerapp/feature/coupons/data/demo_coupons.dart';
+import 'package:scannerapp/feature/coupons/data/models/coupon.dart';
 
 class CartItem {
   const CartItem({required this.product, required this.quantity});
@@ -20,6 +22,8 @@ class ShopOrder {
     required this.items,
     required this.deliveryFee,
     required this.status,
+    this.discount = 0,
+    this.couponCode,
   });
 
   final String id;
@@ -27,15 +31,19 @@ class ShopOrder {
   final List<CartItem> items;
   final int deliveryFee;
   final OrderStatus status;
+  final int discount;
+  final String? couponCode;
 
   int get subtotal => items.fold(0, (sum, item) => sum + item.lineTotal);
-  int get total => subtotal + deliveryFee;
+  int get total => subtotal + deliveryFee - discount;
   int get itemCount => items.fold(0, (sum, item) => sum + item.quantity);
 }
 
 /// Session-only store. Closing the app resets the cart and order changes.
 class ShopProvider extends ChangeNotifier {
   final Map<String, int> _cartQuantities = {};
+  final Set<String> _favoriteIds = {};
+  Coupon? _appliedCoupon;
   final List<ShopOrder> _orders = [
     ShopOrder(
       id: 'MC-24108',
@@ -69,12 +77,55 @@ class ShopProvider extends ChangeNotifier {
   );
 
   List<ShopOrder> get orders => List.unmodifiable(_orders);
+  List<Product> get favoriteProducts => List.unmodifiable(
+    DemoCatalog.products.where((product) => _favoriteIds.contains(product.id)),
+  );
+  int get favoriteCount => _favoriteIds.length;
+  bool isFavorite(Product product) => _favoriteIds.contains(product.id);
+
+  List<Product> get recentPurchases {
+    final seen = <String>{};
+    return List.unmodifiable([
+      for (final order in _orders)
+        for (final item in order.items)
+          if (seen.add(item.product.id)) item.product,
+    ]);
+  }
+
+  void toggleFavorite(Product product) {
+    if (!_favoriteIds.add(product.id)) _favoriteIds.remove(product.id);
+    notifyListeners();
+  }
+
   int get cartCount =>
       _cartQuantities.values.fold(0, (sum, quantity) => sum + quantity);
   int get cartSubtotal =>
       cartItems.fold(0, (sum, item) => sum + item.lineTotal);
   int get deliveryFee => cartSubtotal == 0 || cartSubtotal >= 1000 ? 0 : 60;
-  int get cartTotal => cartSubtotal + deliveryFee;
+  Coupon? get appliedCoupon => _appliedCoupon;
+  int get couponDiscount => _appliedCoupon?.discountFor(cartSubtotal) ?? 0;
+  int get cartTotal => cartSubtotal + deliveryFee - couponDiscount;
+
+  /// Returns a validation message, or null after applying the coupon.
+  String? applyCoupon(String code) {
+    final normalized = code.trim().toUpperCase();
+    final coupon = DemoCoupons.coupons
+        .where((coupon) => coupon.code == normalized)
+        .firstOrNull;
+    if (coupon == null) return 'This coupon code is not valid.';
+    if (cartSubtotal < coupon.minimumSpend) {
+      return 'Spend at least ৳${coupon.minimumSpend} to use ${coupon.code}.';
+    }
+    _appliedCoupon = coupon;
+    notifyListeners();
+    return null;
+  }
+
+  void removeCoupon() {
+    if (_appliedCoupon == null) return;
+    _appliedCoupon = null;
+    notifyListeners();
+  }
 
   int cartQuantityFor(Product product) => _cartQuantities[product.id] ?? 0;
 
@@ -98,7 +149,9 @@ class ShopProvider extends ChangeNotifier {
   }
 
   void removeFromCart(Product product) {
-    if (_cartQuantities.remove(product.id) != null) notifyListeners();
+    if (_cartQuantities.remove(product.id) == null) return;
+    if (_cartQuantities.isEmpty) _appliedCoupon = null;
+    notifyListeners();
   }
 
   ShopOrder? placeOrder() {
@@ -109,9 +162,12 @@ class ShopProvider extends ChangeNotifier {
       items: cartItems,
       deliveryFee: deliveryFee,
       status: OrderStatus.placed,
+      discount: couponDiscount,
+      couponCode: couponDiscount > 0 ? _appliedCoupon?.code : null,
     );
     _orders.insert(0, order);
     _cartQuantities.clear();
+    _appliedCoupon = null;
     notifyListeners();
     return order;
   }

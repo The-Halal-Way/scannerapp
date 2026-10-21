@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:scannerapp/config/theme/app_theme.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
+import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/product/presentation/screens/product_detail_screen.dart';
 import 'package:scannerapp/feature/search/presentation/screens/search_screen.dart';
 import 'package:scannerapp/feature/search/presentation/widgets/product_result_card.dart';
@@ -46,6 +47,15 @@ void main() {
     await tester.tap(find.textContaining('Add to cart'));
     await tester.pump();
     expect(shop.cartCount, 1);
+    await tester.tap(find.byTooltip('Increase quantity'));
+    await tester.pump();
+    expect(shop.cartCount, 2);
+    await tester.tap(find.byTooltip('Decrease quantity'));
+    await tester.pump();
+    expect(shop.cartCount, 1);
+    await tester.tap(find.byTooltip('Add to favorites'));
+    await tester.pump();
+    expect(shop.isFavorite(DemoCatalog.products.first), isTrue);
     expect(tester.takeException(), isNull);
   });
 }
