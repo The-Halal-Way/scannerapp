@@ -45,14 +45,16 @@ void main() {
     expect(find.byType(ProductDetailScreen), findsOneWidget);
 
     await tester.tap(find.textContaining('Add to cart'));
-    await tester.pump();
+    await tester.pumpAndSettle();
     expect(shop.cartCount, 1);
     await tester.tap(find.byTooltip('Increase quantity'));
-    await tester.pump();
-    expect(shop.cartCount, 2);
+    await tester.pumpAndSettle();
+    expect(shop.cartCount, 1);
+    expect(shop.cartUnitCount, 2);
     await tester.tap(find.byTooltip('Decrease quantity'));
     await tester.pump();
     expect(shop.cartCount, 1);
+    expect(shop.cartUnitCount, 1);
     await tester.tap(find.byTooltip('Add to favorites'));
     await tester.pump();
     expect(shop.isFavorite(DemoCatalog.products.first), isTrue);

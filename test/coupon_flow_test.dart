@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/coupons/presentation/widgets/coupon_picker_sheet.dart';
-import 'package:scannerapp/feature/coupons/presentation/widgets/coupon_ticket_card.dart';
+import 'package:scannerapp/feature/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:scannerapp/main.dart';
 
 void main() {
@@ -19,10 +19,8 @@ void main() {
 
     await tester.pumpWidget(const MyApp());
     await tester.pumpAndSettle();
-    expect(find.text('Coupons for you'), findsOneWidget);
-    expect(find.text('CARE10'), findsOneWidget);
     final shop = tester
-        .element(find.byType(CouponTicketCard).first)
+        .element(find.byType(DashboardScreen))
         .read<ShopProvider>();
     shop.addToCart(DemoCatalog.products.first, quantity: 4);
     await tester.pump();

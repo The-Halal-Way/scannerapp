@@ -38,7 +38,7 @@ class HomeNavItem extends StatelessWidget {
         selected: isSelected,
         button: true,
         label: badgeCount > 0
-            ? '${destination.label}, $badgeCount items'
+            ? '${destination.label}, $badgeCount ${badgeCount == 1 ? 'product' : 'products'}'
             : destination.label,
         excludeSemantics: true,
         child: InkWell(

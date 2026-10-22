@@ -161,6 +161,7 @@ class DashboardProductCard extends StatelessWidget {
                     ),
                   ),
                   ProductCartControl(
+                    key: ValueKey('cart-control-${product.id}'),
                     compact: true,
                     quantity: cartQuantity,
                     stock: product.stock,

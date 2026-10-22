@@ -169,6 +169,7 @@ class ProductResultCard extends StatelessWidget {
                             ),
                           ),
                           ProductCartControl(
+                            key: ValueKey('cart-control-${product.id}'),
                             quantity: cartQuantity,
                             stock: product.stock,
                             onAdd: onAdd,

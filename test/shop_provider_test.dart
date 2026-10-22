@@ -3,6 +3,24 @@ import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 
 void main() {
+  test('cart counts distinct products separately from pieces', () {
+    final shop = ShopProvider();
+    addTearDown(shop.dispose);
+    final first = DemoCatalog.products.first;
+    final second = DemoCatalog.products[1];
+
+    shop.addToCart(first, quantity: 5);
+    shop.addToCart(second, quantity: 2);
+    expect(shop.cartCount, 2);
+    expect(shop.cartUnitCount, 7);
+    shop.setCartQuantity(first, 1);
+    expect(shop.cartCount, 2);
+    expect(shop.cartUnitCount, 3);
+    shop.removeFromCart(first);
+    expect(shop.cartCount, 1);
+    expect(shop.cartUnitCount, 2);
+  });
+
   test('favorites and recent purchases update within the session', () {
     final shop = ShopProvider();
     addTearDown(shop.dispose);
@@ -37,12 +55,15 @@ void main() {
       expect(shop.orders.length, 2);
 
       shop.addToCart(first, quantity: 4);
+      expect(shop.cartCount, 1);
+      expect(shop.cartUnitCount, 4);
       expect(shop.cartQuantityFor(first), 4);
       expect(shop.cartSubtotal, first.price * 4);
       expect(shop.deliveryFee, 60);
 
       shop.addToCart(second);
-      expect(shop.cartCount, 5);
+      expect(shop.cartCount, 2);
+      expect(shop.cartUnitCount, 5);
       expect(shop.deliveryFee, 0);
 
       final order = shop.placeOrder();

@@ -13,6 +13,7 @@ import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_prod
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_product_section.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_promo_banner.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_section_header.dart';
+import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_search_bar.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({
@@ -64,6 +65,7 @@ class DashboardScreen extends StatelessWidget {
                 slivers: [
                   SliverList.list(
                     children: [
+                      DashboardSearchBar(onTap: onSearchTap),
                       SizedBox(height: 11.h),
                       DashboardPromoBanner(
                         onExploreTap: onOffersTap ?? onSearchTap,

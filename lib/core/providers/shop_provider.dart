@@ -97,7 +97,9 @@ class ShopProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get cartCount =>
+  /// Number of distinct products, independent of their quantities.
+  int get cartCount => _cartQuantities.length;
+  int get cartUnitCount =>
       _cartQuantities.values.fold(0, (sum, quantity) => sum + quantity);
   int get cartSubtotal =>
       cartItems.fold(0, (sum, item) => sum + item.lineTotal);

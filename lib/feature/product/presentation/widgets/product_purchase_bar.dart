@@ -35,16 +35,18 @@ class ProductPurchaseBar extends StatelessWidget {
         top: false,
         child: Row(
           children: [
-            if (cartQuantity > 0) ...[
-              ProductCartControl(
+            Visibility(
+              visible: cartQuantity > 0,
+              maintainState: true,
+              child: ProductCartControl(
                 quantity: cartQuantity,
                 stock: stock,
                 onAdd: onAdd,
                 onDecrease: onDecrease,
                 onIncrease: onIncrease,
               ),
-              const SizedBox(width: 12),
-            ],
+            ),
+            if (cartQuantity > 0) const SizedBox(width: 12),
             Expanded(
               child: SizedBox(
                 height: 48,

@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_product_card.dart';
+import 'package:scannerapp/feature/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:scannerapp/feature/home/presentation/widgets/home_navbar.dart';
 import 'package:scannerapp/feature/favorites/presentation/screens/favorite_products_screen.dart';
 import 'package:scannerapp/feature/search/presentation/screens/search_screen.dart';
 import 'package:scannerapp/feature/search/presentation/widgets/product_result_card.dart';
@@ -19,22 +21,50 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  testWidgets('cart badge and header distinguish products from pieces', (
+    tester,
+  ) async {
+    await openApp(tester);
+    final shop = tester
+        .element(find.byType(DashboardScreen))
+        .read<ShopProvider>();
+    shop.addToCart(DemoCatalog.products.first, quantity: 5);
+    shop.addToCart(DemoCatalog.products[1], quantity: 2);
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(of: find.byType(HomeNavbar), matching: find.text('2')),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Cart'));
+    await tester.pumpAndSettle();
+    expect(find.text('2 products'), findsOneWidget);
+    expect(find.text('7 pieces'), findsOneWidget);
+  });
+
   testWidgets('dashboard search and favorites remain usable at the bottom', (
     tester,
   ) async {
     await openApp(tester);
+    final searchBar = find.text('Search medicines, brands, essentials');
+    final searchIcon = find.byTooltip('Open search');
+    expect(searchBar.hitTestable(), findsOneWidget);
+    expect(searchIcon.hitTestable(), findsOneWidget);
     final scroll = find.byKey(const PageStorageKey('dashboard-scroll'));
     final scrollable = find
         .descendant(of: scroll, matching: find.byType(Scrollable))
         .first;
     final position = tester.state<ScrollableState>(scrollable).position;
+    position.jumpTo(100);
+    await tester.pumpAndSettle();
+    expect(searchBar.hitTestable(), findsNothing);
+    expect(searchIcon.hitTestable(), findsOneWidget);
     position.jumpTo(position.maxScrollExtent);
     await tester.pumpAndSettle();
 
     expect(find.byTooltip('Open favorites').hitTestable(), findsOneWidget);
-    final search = find.text('Search medicines, brands, essentials');
-    expect(search.hitTestable(), findsOneWidget);
-    await tester.tap(search);
+    expect(searchBar.hitTestable(), findsNothing);
+    expect(searchIcon.hitTestable(), findsOneWidget);
+    await tester.tap(searchIcon);
     await tester.pumpAndSettle();
     expect(find.byType(SearchScreen), findsOneWidget);
     await tester.pageBack();
@@ -85,6 +115,8 @@ void main() {
           .id,
       product.id,
     );
+    await tester.tap(find.byTooltip('Change quantity'));
+    await tester.pumpAndSettle();
     await tester.tap(find.byTooltip('Decrease quantity'));
     await tester.pump();
     expect(shop.cartCount, 0);
@@ -145,7 +177,8 @@ void main() {
       );
       await tester.pump();
       final shop = tester.element(card).read<ShopProvider>();
-      expect(shop.cartCount, 2);
+      expect(shop.cartCount, 1);
+      expect(shop.cartUnitCount, 2);
       expect(tester.takeException(), isNull);
 
       await tester.tap(find.text('Cart'));

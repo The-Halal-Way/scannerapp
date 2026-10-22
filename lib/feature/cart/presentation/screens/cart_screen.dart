@@ -33,11 +33,21 @@ class CartScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 13),
               child: Center(
-                child: Text(
-                  '${shop.cartCount} ${shop.cartCount == 1 ? 'item' : 'items'}',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.labelMedium?.copyWith(color: colors.brand),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '${shop.cartCount} ${shop.cartCount == 1 ? 'product' : 'products'}',
+                      style: Theme.of(
+                        context,
+                      ).textTheme.labelMedium?.copyWith(color: colors.brand),
+                    ),
+                    Text(
+                      '${shop.cartUnitCount} ${shop.cartUnitCount == 1 ? 'piece' : 'pieces'}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
+                  ],
                 ),
               ),
             ),
