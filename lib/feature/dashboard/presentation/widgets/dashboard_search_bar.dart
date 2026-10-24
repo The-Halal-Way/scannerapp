@@ -4,9 +4,10 @@ import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 
 class DashboardSearchBar extends StatelessWidget {
-  const DashboardSearchBar({super.key, this.onTap});
+  const DashboardSearchBar({super.key, this.onTap, this.onVoiceTap});
 
   final VoidCallback? onTap;
+  final VoidCallback? onVoiceTap;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,19 @@ class DashboardSearchBar extends StatelessWidget {
                   ),
                 ),
                 Container(width: 1, height: 22.h, color: colors.stroke),
-                SizedBox(width: 12.w),
-                Icon(AppIcons.filter, color: colors.brand, size: 21.sp),
+                SizedBox(width: 5.w),
+                IconButton(
+                  tooltip: 'Search by voice',
+                  onPressed: onVoiceTap,
+                  icon: Icon(AppIcons.microphone, color: colors.brand),
+                  iconSize: 21.sp,
+                  visualDensity: VisualDensity.compact,
+                  constraints: BoxConstraints.tightFor(
+                    width: 35.w,
+                    height: 42.h,
+                  ),
+                  padding: EdgeInsets.zero,
+                ),
               ],
             ),
           ),

@@ -235,7 +235,7 @@ class _PromoContent {
           accent: colors.cyan,
           primaryAccent: colors.coral,
           secondaryAccent: colors.cyan,
-          primaryLabel: 'MEDCLUB',
+          primaryLabel: 'ITTADI',
           secondaryLabel: 'ESSENTIALS',
           primaryIcon: AppIcons.shield,
           secondaryIcon: AppIcons.liquid,

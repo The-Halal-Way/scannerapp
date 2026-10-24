@@ -43,6 +43,8 @@ abstract final class AppIcons {
   static const refresh = CupertinoIcons.refresh;
   static const remove = CupertinoIcons.minus;
   static const search = CupertinoIcons.search;
+  static const microphone = CupertinoIcons.mic;
+  static const microphoneFilled = CupertinoIcons.mic_fill;
   static const sort = CupertinoIcons.arrow_up_down;
   static const priceDrop = CupertinoIcons.arrow_down_right;
   static const filter = CupertinoIcons.line_horizontal_3_decrease;

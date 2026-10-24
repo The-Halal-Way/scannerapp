@@ -5,6 +5,7 @@ import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/core/global_service.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
+import 'package:scannerapp/core/widgets/app_brand_footer.dart';
 import 'package:scannerapp/feature/catalog/data/demo_catalog.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
 import 'package:scannerapp/feature/dashboard/presentation/widgets/dashboard_company_section.dart';
@@ -19,6 +20,7 @@ class DashboardScreen extends StatelessWidget {
   const DashboardScreen({
     super.key,
     this.onSearchTap,
+    this.onVoiceSearchTap,
     this.onOffersTap,
     this.onFavoritesTap,
     this.onOrdersTap,
@@ -28,6 +30,7 @@ class DashboardScreen extends StatelessWidget {
   });
 
   final VoidCallback? onSearchTap;
+  final VoidCallback? onVoiceSearchTap;
   final VoidCallback? onOffersTap;
   final VoidCallback? onFavoritesTap;
   final VoidCallback? onOrdersTap;
@@ -65,7 +68,10 @@ class DashboardScreen extends StatelessWidget {
                 slivers: [
                   SliverList.list(
                     children: [
-                      DashboardSearchBar(onTap: onSearchTap),
+                      DashboardSearchBar(
+                        onTap: onSearchTap,
+                        onVoiceTap: onVoiceSearchTap,
+                      ),
                       SizedBox(height: 11.h),
                       DashboardPromoBanner(
                         onExploreTap: onOffersTap ?? onSearchTap,
@@ -151,6 +157,7 @@ class DashboardScreen extends StatelessWidget {
                       },
                     ),
                   ),
+                  const SliverToBoxAdapter(child: AppBrandFooter()),
                 ],
               ),
             ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
+import 'package:scannerapp/core/widgets/app_brand.dart';
 
 class DashboardHeader extends StatelessWidget {
   const DashboardHeader({
@@ -26,103 +27,70 @@ class DashboardHeader extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.fromLTRB(13.w, 10.h, 13.w, 10.h),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _BrandMark(color: colors.brand),
-          SizedBox(width: 9.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'MEDCLUB',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                    color: colors.brand,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: .15,
-                  ),
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  'Hello, ${name.trim()}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -.4,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(width: 8.w),
-          _HeaderAction(
-            icon: AppIcons.search,
-            label: 'Open search',
-            onTap: onSearchTap,
-          ),
-          SizedBox(width: 6.w),
-          _HeaderAction(
-            icon: AppIcons.favorite,
-            label: 'Open favorites',
-            count: favoriteCount,
-            onTap: onFavoritesTap,
-          ),
-          SizedBox(width: 7.w),
-          InkWell(
-            onTap: onProfileTap,
-            borderRadius: BorderRadius.circular(16.r),
-            child: Container(
-              height: 40.r,
-              width: 40.r,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [colors.violet, colors.brand],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+          Row(
+            children: [
+              const Expanded(child: AppBrand(compact: true)),
+              _HeaderAction(
+                icon: AppIcons.search,
+                label: 'Open search',
+                onTap: onSearchTap,
+              ),
+              SizedBox(width: 6.w),
+              _HeaderAction(
+                icon: AppIcons.favorite,
+                label: 'Open favorites',
+                count: favoriteCount,
+                onTap: onFavoritesTap,
+              ),
+              SizedBox(width: 7.w),
+              InkWell(
+                onTap: onProfileTap,
                 borderRadius: BorderRadius.circular(16.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: colors.brand.withValues(alpha: 0.22),
-                    blurRadius: 15,
-                    offset: const Offset(0, 7),
+                child: Container(
+                  height: 40.r,
+                  width: 40.r,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [colors.violet, colors.brand],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16.r),
+                    boxShadow: [
+                      BoxShadow(
+                        color: colors.brand.withValues(alpha: 0.22),
+                        blurRadius: 15,
+                        offset: const Offset(0, 7),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              child: Text(
-                firstName.isEmpty ? 'M' : firstName[0].toUpperCase(),
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
+                  child: Text(
+                    firstName.isEmpty ? 'M' : firstName[0].toUpperCase(),
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ),
               ),
+            ],
+          ),
+          SizedBox(height: 9.h),
+          Text(
+            'Hello, ${name.trim()}',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w800,
+              letterSpacing: -.3,
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _BrandMark extends StatelessWidget {
-  const _BrandMark({required this.color});
-
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 40.r,
-      height: 40.r,
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(14.r),
-      ),
-      child: Icon(AppIcons.medical, color: color, size: 23.sp),
     );
   }
 }

@@ -51,6 +51,7 @@ abstract final class DemoCatalog {
       tagline: 'Pharmaceuticals PLC',
       logoAsset: 'assets/images/companies/square.png',
       logoOnDark: true,
+      logoMarkOnly: true,
     ),
     Company(
       id: 'beximco',

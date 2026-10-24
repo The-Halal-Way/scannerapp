@@ -5,6 +5,7 @@ import 'package:scannerapp/config/theme/app_theme_colors.dart';
 import 'package:scannerapp/feature/profile/presentation/providers/profile_provider.dart';
 import 'package:scannerapp/feature/favorites/presentation/screens/favorite_products_screen.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
+import 'package:scannerapp/core/widgets/app_brand_footer.dart';
 import 'package:scannerapp/feature/profile/presentation/screens/profile_details_screen.dart';
 import 'package:scannerapp/feature/settings/presentation/providers/settings_provider.dart';
 import 'package:scannerapp/feature/settings/presentation/widgets/settings_action_tile.dart';
@@ -40,7 +41,7 @@ class _SettingsContent extends StatelessWidget {
         children: [
           Text('Settings', style: text.headlineLarge),
           const SizedBox(height: 5),
-          Text('Make your Med Club space yours.', style: text.bodyMedium),
+          Text('Make your pharmacy space yours.', style: text.bodyMedium),
           const SizedBox(height: 24),
           SettingsProfileCard(
             profile: profile,
@@ -108,15 +109,7 @@ class _SettingsContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 25),
-          Center(
-            child: Text(
-              'MED CLUB  ·  WHOLESALE MADE SIMPLE',
-              style: text.labelSmall?.copyWith(
-                color: colors.textMuted,
-                letterSpacing: .15,
-              ),
-            ),
-          ),
+          const AppBrandFooter(),
         ],
       ),
     );

@@ -38,7 +38,7 @@ abstract final class DemoInboxRepository {
     InboxMessage(
       id: 'welcome',
       category: InboxCategory.updates,
-      title: 'Welcome to Med Club',
+      title: 'Welcome to IttadiPharma',
       body:
           'Your pharmacy dashboard is ready. Browse wholesale products, build your cart, and keep every order in one place.',
       timeLabel: 'Monday · 10:30 AM',

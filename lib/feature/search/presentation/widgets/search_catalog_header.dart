@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:scannerapp/config/theme/app_theme_colors.dart';
+import 'package:scannerapp/core/widgets/app_brand.dart';
 
 class SearchCatalogHeader extends StatelessWidget {
   const SearchCatalogHeader({
@@ -10,6 +11,10 @@ class SearchCatalogHeader extends StatelessWidget {
     required this.onClearQuery,
     required this.onFilterTap,
     required this.onCartTap,
+    required this.onVoiceTap,
+    required this.isListening,
+    required this.isVoiceStarting,
+    this.focusSearchOnOpen = false,
     required this.activeFilterCount,
     required this.cartCount,
   });
@@ -19,6 +24,10 @@ class SearchCatalogHeader extends StatelessWidget {
   final VoidCallback onClearQuery;
   final VoidCallback onFilterTap;
   final VoidCallback onCartTap;
+  final VoidCallback onVoiceTap;
+  final bool isListening;
+  final bool isVoiceStarting;
+  final bool focusSearchOnOpen;
   final int activeFilterCount;
   final int cartCount;
 
@@ -51,7 +60,7 @@ class SearchCatalogHeader extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    'MED CLUB  /  CATALOG',
+                    '${AppBranding.name.toUpperCase()}  /  CATALOG',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -142,6 +151,7 @@ class SearchCatalogHeader extends StatelessWidget {
                       Expanded(
                         child: TextField(
                           controller: controller,
+                          autofocus: focusSearchOnOpen,
                           onChanged: onQueryChanged,
                           textInputAction: TextInputAction.search,
                           decoration: const InputDecoration(
@@ -161,6 +171,19 @@ class SearchCatalogHeader extends StatelessWidget {
                           onPressed: onClearQuery,
                           icon: const Icon(AppIcons.close, size: 18),
                         ),
+                      IconButton(
+                        tooltip: isListening
+                            ? 'Stop voice search'
+                            : 'Search by voice',
+                        onPressed: isVoiceStarting ? null : onVoiceTap,
+                        icon: Icon(
+                          isListening
+                              ? AppIcons.microphoneFilled
+                              : AppIcons.microphone,
+                          size: 21,
+                          color: isListening ? colors.coral : colors.brand,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -211,6 +234,17 @@ class SearchCatalogHeader extends StatelessWidget {
               ),
             ],
           ),
+          if (isListening || isVoiceStarting) ...[
+            const SizedBox(height: 9),
+            Text(
+              isVoiceStarting
+                  ? 'Starting voice search…'
+                  : 'Listening… speak a product name',
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: colors.brand),
+            ),
+          ],
         ],
       ),
     );

@@ -6,6 +6,7 @@ class Company {
     required this.tagline,
     required this.logoAsset,
     this.logoOnDark = false,
+    this.logoMarkOnly = false,
   });
 
   final String id;
@@ -14,4 +15,5 @@ class Company {
   final String tagline;
   final String logoAsset;
   final bool logoOnDark;
+  final bool logoMarkOnly;
 }

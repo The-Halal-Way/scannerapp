@@ -32,7 +32,8 @@ class _HomeState extends State<Home> {
     _currentPage = widget.initialPage.clamp(0, 4);
     _pages = [
       DashboardScreen(
-        onSearchTap: _openCatalog,
+        onSearchTap: () => _openCatalog(focusSearch: true),
+        onVoiceSearchTap: () => _openCatalog(startVoiceSearch: true),
         onOffersTap: () => _openCatalog(onlyOffers: true),
         onFavoritesTap: _openFavorites,
         onOrdersTap: () => _changePage(1),
@@ -87,6 +88,8 @@ class _HomeState extends State<Home> {
     String? categoryId,
     String? companyId,
     bool onlyOffers = false,
+    bool focusSearch = false,
+    bool startVoiceSearch = false,
   }) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -94,6 +97,8 @@ class _HomeState extends State<Home> {
           initialCategoryId: categoryId,
           initialCompanyId: companyId,
           initialOnlyOffers: onlyOffers,
+          focusSearchOnOpen: focusSearch,
+          startVoiceSearchOnOpen: startVoiceSearch,
           onProductTap: _openProduct,
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:scannerapp/config/theme/app_icons.dart';
 import 'package:provider/provider.dart';
@@ -6,6 +8,7 @@ import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/cart/presentation/screens/cart_screen.dart';
 import 'package:scannerapp/feature/catalog/data/models/product.dart';
 import 'package:scannerapp/feature/product/presentation/screens/product_detail_screen.dart';
+import 'package:scannerapp/feature/search/data/services/voice_search_service.dart';
 import 'package:scannerapp/feature/search/presentation/providers/search_filter_provider.dart';
 import 'package:scannerapp/feature/search/presentation/widgets/product_result_card.dart';
 import 'package:scannerapp/feature/search/presentation/widgets/search_catalog_header.dart';
@@ -18,12 +21,18 @@ class SearchScreen extends StatefulWidget {
     this.initialCategoryId,
     this.initialCompanyId,
     this.initialOnlyOffers = false,
+    this.focusSearchOnOpen = false,
+    this.startVoiceSearchOnOpen = false,
+    this.voiceSearchService,
     this.onProductTap,
   });
 
   final String? initialCategoryId;
   final String? initialCompanyId;
   final bool initialOnlyOffers;
+  final bool focusSearchOnOpen;
+  final bool startVoiceSearchOnOpen;
+  final VoiceSearchService? voiceSearchService;
   final ValueChanged<Product>? onProductTap;
 
   @override
@@ -33,6 +42,10 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   late final SearchFilterProvider _filters;
   late final TextEditingController _searchController;
+  late final VoiceSearchService _voiceSearch;
+  bool _isVoiceStarting = false;
+  bool _isListening = false;
+  int _voiceRequestId = 0;
 
   @override
   void initState() {
@@ -43,6 +56,12 @@ class _SearchScreenState extends State<SearchScreen> {
       initialOnlyOffers: widget.initialOnlyOffers,
     );
     _searchController = TextEditingController();
+    _voiceSearch = widget.voiceSearchService ?? DeviceVoiceSearchService();
+    if (widget.startVoiceSearchOnOpen) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) unawaited(_toggleVoiceSearch());
+      });
+    }
   }
 
   @override
@@ -61,6 +80,8 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void dispose() {
+    _voiceRequestId++;
+    unawaited(_voiceSearch.cancel());
     _filters.dispose();
     _searchController.dispose();
     super.dispose();
@@ -85,10 +106,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   SliverToBoxAdapter(
                     child: SearchCatalogHeader(
                       controller: _searchController,
-                      onQueryChanged: filters.setQuery,
+                      onQueryChanged: _onTypedQuery,
                       onClearQuery: _clearQuery,
                       onFilterTap: _showFilters,
                       onCartTap: _openCart,
+                      onVoiceTap: _toggleVoiceSearch,
+                      isListening: _isListening,
+                      isVoiceStarting: _isVoiceStarting,
+                      focusSearchOnOpen: widget.focusSearchOnOpen,
                       activeFilterCount: filters.activeFilterCount,
                       cartCount: context.watch<ShopProvider>().cartCount,
                     ),
@@ -167,11 +192,96 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _clearQuery() {
+    _cancelVoiceForEditing();
     _searchController.clear();
     _filters.setQuery('');
   }
 
+  void _onTypedQuery(String value) {
+    _cancelVoiceForEditing();
+    _filters.setQuery(value);
+  }
+
+  void _cancelVoiceForEditing() {
+    if (!_isListening && !_isVoiceStarting) return;
+    _voiceRequestId++;
+    unawaited(_voiceSearch.cancel());
+    setState(() {
+      _isListening = false;
+      _isVoiceStarting = false;
+    });
+  }
+
+  void _applyRecognizedQuery(String words) {
+    if (!mounted) return;
+    _searchController.value = TextEditingValue(
+      text: words,
+      selection: TextSelection.collapsed(offset: words.length),
+    );
+    _filters.setQuery(words);
+  }
+
+  Future<void> _toggleVoiceSearch() async {
+    if (_isVoiceStarting) return;
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    if (_isListening) {
+      await _voiceSearch.stop();
+      if (mounted) setState(() => _isListening = false);
+      return;
+    }
+
+    setState(() => _isVoiceStarting = true);
+    final requestId = ++_voiceRequestId;
+    try {
+      final available = await _voiceSearch.initialize(
+        onError: _onVoiceError,
+        onListeningChanged: (listening) {
+          if (mounted) setState(() => _isListening = listening);
+        },
+      );
+      if (!mounted || requestId != _voiceRequestId) return;
+      if (!available) {
+        _showVoiceMessage(
+          'Voice search is unavailable. Check microphone permission and speech services.',
+        );
+        return;
+      }
+      await _voiceSearch.start(
+        onResult: (words) {
+          if (requestId == _voiceRequestId) _applyRecognizedQuery(words);
+        },
+      );
+      if (mounted) setState(() => _isListening = _voiceSearch.isListening);
+    } catch (_) {
+      if (mounted) {
+        _showVoiceMessage('Voice search could not start. Please try again.');
+      }
+    } finally {
+      if (mounted) setState(() => _isVoiceStarting = false);
+    }
+  }
+
+  void _onVoiceError(String error) {
+    if (!mounted) return;
+    setState(() => _isListening = false);
+    if (error == 'error_no_match' || error == 'error_speech_timeout') {
+      _showVoiceMessage('No speech detected. Tap the microphone to try again.');
+    } else {
+      _showVoiceMessage(
+        'Voice search stopped. Check microphone permission and try again.',
+      );
+    }
+  }
+
+  void _showVoiceMessage(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
   void _clearAll() {
+    _cancelVoiceForEditing();
     _searchController.clear();
     _filters.clearAll();
   }

@@ -29,7 +29,7 @@ class DashboardCompanySection extends StatelessWidget {
         ),
         SizedBox(height: 3.5.h),
         SizedBox(
-          height: 106.h,
+          height: 69.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: 13.w),

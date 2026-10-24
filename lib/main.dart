@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:scannerapp/config/router/app_router.dart';
 import 'package:scannerapp/config/theme/app_theme.dart';
 import 'package:scannerapp/core/global_service.dart';
+import 'package:scannerapp/core/widgets/app_brand.dart';
 import 'package:scannerapp/core/providers/shop_provider.dart';
 import 'package:scannerapp/feature/inbox/presentation/providers/inbox_provider.dart';
 import 'package:scannerapp/feature/settings/presentation/providers/settings_provider.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812),
         minTextAdapt: true,
         builder: (context, child) => MaterialApp(
-          title: 'Med Club',
+          title: AppBranding.name,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light(context),
           initialRoute: AppRouteName.home,
